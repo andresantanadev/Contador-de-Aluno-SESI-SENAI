@@ -1,0 +1,92 @@
+.opcoes-container { /* Renomeado de .outros-container */
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh !important;
+  margin: 40px;
+}
+
+.management-buttons-section {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  width: 100%;
+  max-width: 1000px;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  padding: 45px;
+}
+
+.management-title {
+  grid-column: 1 / -1;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2rem;
+  color: #333;
+  border-bottom: 2px solid #8B0000;
+  padding-bottom: 10px;
+}
+
+.management-button {
+  background-color: #f8f9fa;
+  color: #333;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 20px;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+}
+
+.management-button i {
+  font-size: 2.5rem;
+  color: #8B0000;
+}
+
+.management-button:hover {
+  border-color: #8B0000;
+  background-color: #fff;
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+.action-button.back-button {
+  margin-top: -20px !important;
+}
+
+/* Responsividade */
+@media (max-width: 992px) {
+  .management-buttons-section {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .management-buttons-section {
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+  .management-title {
+    font-size: 1.5rem;
+  }
+  .management-button {
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+  .management-button i {
+    font-size: 1.5rem;
+  }
+}

@@ -1,0 +1,473 @@
+/* ==========================================================================
+   1. ESTRUTURA E LAYOUT (GRID PRINCIPAL - DESKTOP FIRST)
+   ========================================================================== */
+.planejamento-container-grid {
+    display: grid;
+    /* Colunas fixas nas laterais para estabilidade, meio flexível */
+    grid-template-columns: 320px 1fr 340px; 
+    grid-template-rows: 1fr; /* Ocupa 100% da altura do pai */
+    gap: 24px;
+    
+    /* Configuração de Tela Cheia (Fixed Viewport) */
+    width: 100%;
+    height: calc(85vh - 10px); /* Desconta altura do Header da aplicação */
+    margin-top: 80px; 
+    padding: 24px;
+    box-sizing: border-box;
+    
+    background-color: #f3f4f6; /* Cinza moderno (Cool Gray) */
+    font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+    color: #1f2937;
+    overflow: hidden; /* Impede scroll na página inteira */
+    border-radius: 10px;
+}
+
+/* ==========================================================================
+   2. PAINÉIS (CARDS ESTRUTURAIS)
+   ========================================================================== */
+.panel-lateral, 
+.panel-central {
+    background-color: #ffffff;
+    border-radius: 12px; /* Bordas arredondadas modernas */
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    border: 1px solid #e5e7eb; /* Borda sutil para definição */
+    
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Garante que o scroll interno respeite as bordas arredondadas */
+    height: 100%; /* Força altura total da célula do grid */
+}
+
+/* ==========================================================================
+   3. CABEÇALHOS DOS PAINÉIS (FIXOS)
+   ========================================================================== */
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    min-height: 72px; /* Altura fixa para alinhamento visual entre colunas */
+    flex-shrink: 0; /* Impede que o header encolha */
+    z-index: 10;
+}
+
+.panel-header h3 {
+    margin: 0;
+    font-size: 1.125rem; /* 18px */
+    font-weight: 700;
+    color: #111827;
+    letter-spacing: -0.01em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Ações no Header (Busca e Botões) */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* --- Barra de Busca Expansível --- */
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.search-icon {
+    position: absolute;
+    color: #9ca3af;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    pointer-events: none; /* Deixa clicar através */
+    transition: color 0.2s;
+}
+
+.search-input {
+    width: 30px; /* Tamanho fechado (apenas ícone visualmente) */
+    padding: 8px;
+    border: 1px solid transparent;
+    background-color: transparent;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    color: transparent;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.search-input:focus,
+.search-input:not(:placeholder-shown),
+.search-input.expanded {
+    width: 400px;
+    padding: 8px 0px 8px 16px;
+    background-color: #f9fafb;
+    border-color: #d1d5db;
+    color: #1f2937;
+    cursor: text;
+    outline: none;
+    margin-top: 5px;
+}
+
+.search-input:focus + .search-icon {
+    color: #4b556300;
+}
+
+/* ==========================================================================
+   4. CONTEÚDO SCROLLÁVEL (LISTAS E GRIDS)
+   ========================================================================== */
+.list-container, 
+.grid-container-central, 
+.list-container-cards {
+    flex-grow: 1;
+    overflow-y: auto; /* Scroll apenas aqui */
+    overflow-x: hidden;
+    padding: 16px;
+    position: relative;
+}
+
+/* Scrollbar Estilizada (Fina e Discreta) */
+.list-container::-webkit-scrollbar,
+.grid-container-central::-webkit-scrollbar,
+.list-container-cards::-webkit-scrollbar {
+    width: 6px;
+}
+
+.list-container::-webkit-scrollbar-track,
+.grid-container-central::-webkit-scrollbar-track,
+.list-container-cards::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.list-container::-webkit-scrollbar-thumb,
+.grid-container-central::-webkit-scrollbar-thumb,
+.list-container-cards::-webkit-scrollbar-thumb {
+    background-color: #d1d5db;
+    border-radius: 10px;
+}
+
+.list-container::-webkit-scrollbar-thumb:hover,
+.grid-container-central::-webkit-scrollbar-thumb:hover,
+.list-container-cards::-webkit-scrollbar-thumb:hover {
+    background-color: #9ca3af;
+}
+
+/* ==========================================================================
+   5. LISTA LATERAL (NECESSIDADES)
+   ========================================================================== */
+.list-item-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 6px;
+    background-color: #fff;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+    color: #4b5563;
+}
+
+.list-item-container:hover {
+    background-color: #f3f4f6;
+    color: #111827;
+}
+
+.list-item-container.active {
+    background-color: #fff1f2; /* Fundo Rosa Claro */
+    border-color: #fecdd3;
+    color: #9f1239; /* Texto Vermelho Escuro */
+    font-weight: 600;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.list-item-name {
+    font-size: 0.95rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 180px;
+}
+
+/* Ações (Editar/Excluir) - Aparecem no Hover */
+.list-item-actions {
+    display: flex;
+    gap: 4px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.list-item-container:hover .list-item-actions,
+.list-item-container.active .list-item-actions {
+    opacity: 1;
+}
+
+.list-item-actions button {
+    background: transparent;
+    border: none;
+    color: #9ca3af;
+    padding: 4px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.list-item-actions button:hover {
+    background-color: #fff;
+    color: #ef4444; /* Vermelho no hover */
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+/* ==========================================================================
+   6. GRID CENTRAL (ALUNOS ASSOCIADOS)
+   ========================================================================== */
+.grid-container-central {
+    display: grid;
+    /* Grid responsivo: mínimo 200px por card, preenche o espaço */
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+    align-content: start; /* Alinha cards ao topo */
+    background-color: #f9fafb; /* Fundo interno levemente diferente */
+}
+
+/* ==========================================================================
+   7. CARDS DE ALUNO (COMPONENTES UI)
+   ========================================================================== */
+.aluno-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden; /* Importante para conter o slide-up */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    height: auto;
+    min-height: 90px;
+    margin-top: 10px;
+}
+
+.aluno-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    border-color: #d1d5db;
+    z-index: 5;
+}
+
+/* Header do Card */
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background-color: #fff;
+    transition: background-color 0.3s;
+}
+
+.aluno-card:hover .card-header {
+    background-color: #fcfcfc;
+}
+
+.card-photo {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    flex-shrink: 0;
+}
+
+.card-info {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.card-name {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #111827;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-details {
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+
+.aluno-card:hover .card-body {
+    max-height: 100px;
+    opacity: 1;
+    padding-top: 12px;
+    padding-bottom: 50px; /* Espaço para não ser coberto pelos botões */
+    border-top-color: #f3f4f6;
+}
+
+.card-description-text {
+    font-size: 0.8rem;
+    color: #4b5563;
+    line-height: 1.4;
+    margin: 0;
+}
+
+/* ==========================================================================
+   8. AÇÕES DO CARD (SLIDE UP - INTERAÇÃO PROFISSIONAL)
+   ========================================================================== */
+.card-actions { 
+    position:relative;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    display: flex;
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(4px);
+    border-top: 1px solid #e5e7eb;
+    
+    transform: translateY(100%); /* Escondido */
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    
+}
+
+.aluno-card:hover .card-actions {
+    transform: translateY(0); /* Visível */
+}
+
+/* Botões individuais dentro da barra de ação */
+.card-actions button {
+    flex: 1;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6b7280;
+    font-size: 1rem;
+    transition: all 0.2s;
+}
+
+/* Linhas divisórias entre botões */
+.card-actions button:not(:last-child) {
+    border-right: 1px solid #f3f4f6;
+}
+
+/* Cores de Hover para cada ação */
+.card-actions button.add:hover { background-color: #ecfdf5; color: #059669; height: 40px; margin-top: -15px; }     /* Verde */
+.card-actions button.schedule:hover { background-color: #eff6ff; color: #2563eb; height: 40px; margin-top: -15px; } /* Azul */
+.card-actions button.edit:hover { background-color: #fffbeb; color: #d97706; height: 40px; margin-top: -15px;  }     /* Amarelo */
+.card-actions button.remove:hover,
+.card-actions button.delete:hover { background-color: #fef2f2; color: #dc2626; height: 40px; margin-top: -15px;  }   /* Vermelho */
+
+/* ==========================================================================
+   9. BOTÕES GERAIS E ESTADOS
+   ========================================================================== */
+.add-button-small {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background-color: #10b981; /* Emerald 500 */
+    color: white;
+    border: none;
+    font-size: 1.25rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s, transform 0.2s;
+    box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);
+}
+
+.add-button-small:hover {
+    background-color: #059669;
+
+}
+
+.action-button-pdf {
+    background-color: #fff;
+    color: #4b5563;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s;
+}
+
+.action-button-pdf:hover:not(:disabled) {
+    background-color: #f9fafb;
+    border-color: #9ca3af;
+    color: #111827;
+}
+
+.action-button-pdf:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.empty-state {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #9ca3af;
+    height: 100%;
+    padding: 40px;
+    text-align: center;
+    border: 2px dashed #e5e7eb;
+    border-radius: 12px;
+    background-color: #f9fafb;
+}
+
+.empty-state i {
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+    opacity: 0.5;
+}
+
+.empty-state p {
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+/* ==========================================================================
+   10. MODAIS (SWEETALERT CUSTOMIZAÇÃO)
+   ========================================================================== */
+.swal-form-container {
+    display: flex; flex-direction: column; gap: 12px;
+}
+.swal-form-container .swal2-input,
+.swal-form-container .swal2-select,
+.swal-form-container .swal2-textarea {
+    border-radius: 8px !important;
+    border: 1px solid #d1d5db !important;
+    box-shadow: none !important;
+    transition: border-color 0.2s;
+}
+.swal-form-container .swal2-input:focus {
+    border-color: #8B0000 !important;
+    ring: 2px solid rgba(139, 0, 0, 0.1);
+}

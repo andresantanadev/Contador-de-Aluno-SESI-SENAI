@@ -1,0 +1,434 @@
+/* ===========================================
+   DESIGN REFINADO E COMPLETO - ContagemPage.css
+   =========================================== */
+
+/* ------------------------------
+   VARIÁVEIS DE TEMA
+   ------------------------------ */
+   :root {
+    --cor-primaria: #8B0000; /* Preto principal para botões e cards */
+    --cor-primaria-hover: #990000; /* Preto mais claro para efeito hover */
+    --cor-completo: #1a1a1a; /* Preto levemente acinzentado */
+    --cor-completo-hover: #333333; /* Tom mais claro no hover */
+    --cor-texto-claro: #ffffff; /* Branco puro para textos em fundo escuro */
+    --cor-texto-primario: #111111; /* Cor padrão do texto principal */
+    --cor-texto-secundario: #555555; /* Cor do texto secundário */
+    --cor-fundo-app: #f4f7f9; /* Fundo geral da aplicação */
+    --cor-fundo-card: #ffffff; /* Fundo dos cards */
+    --cor-borda: #e0e0e0; /* Cor de borda padrão */
+    --cor-sucesso: #198754; /* Verde para sucesso */
+}
+
+/* ------------------------------
+   FONTE PADRÃO
+   ------------------------------ */
+.contagem-section {
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+/* ------------------------------
+   LAYOUT PRINCIPAL
+   ------------------------------ */
+.contagem-section {
+    background-color: var(--cor-fundo-app);
+    padding: 25px;
+    border-radius: 16px;
+    width: 80vw;
+    max-width: 1100px;
+    margin: 30px auto;
+    border: 1px solid var(--cor-borda);
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10vh;
+}
+
+/* ------------------------------
+   CARD DE TOTAL DE ALUNOS
+   ------------------------------ */
+.total-geral {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 25px;
+    color: var(--cor-texto-secundario);
+    background-color: var(--cor-fundo-card);
+    padding: 20px 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid var(--cor-borda);
+    flex-shrink: 0;
+}
+
+.total-geral i {
+    color: var(--cor-primaria);
+    margin-right: 15px;
+    font-size: 1.5rem;
+}
+
+.total-geral strong {
+    font-size: 1.8rem;
+    color: var(--cor-texto-primario);
+}
+
+/* ------------------------------
+   GRID DAS TURMAS
+   ------------------------------ */
+.turmas-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Duas colunas no desktop */
+    gap: 15px;
+    overflow-y: auto;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    max-height: 90vh;
+}
+
+/* ------------------------------
+   CARD DE TURMA
+   ------------------------------ */
+.turma-card {
+    background-color: var(--cor-primaria);
+    color: var(--cor-texto-claro);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.25s ease-in-out;
+    padding: 14px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 85px; /* Cards mais finos e compactos */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+    text-align: center;
+}
+
+.turma-card:hover {
+    background-color: var(--cor-primaria-hover);
+    transform: scale(1.05); /* aumenta 5% no hover */
+}
+
+/* Card com contagem feita */
+.turma-card.tem-contagem {
+    background-color: var(--cor-completo);
+    color: var(--cor-texto-claro);
+}
+
+/* Nome da turma */
+.turma-nome-display {
+    font-size: 1.15rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* Quantidade de alunos */
+.turma-contagem-display {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-top: 6px;
+    text-align: center;
+}
+
+/* Quando ainda não há contagem */
+.turma-card.sem-contagem .turma-contagem-display {
+    color: #ffffff; /* Vermelho suave para destaque */
+}
+
+/* Quando já há contagem */
+.turma-card.tem-contagem .turma-contagem-display {
+    color: #b5f5d0; /* Verde claro para indicar sucesso */
+}
+
+/* ------------------------------
+   MODAL DO CONTADOR
+   ------------------------------ */
+.swal2-popup {
+    border-radius: 15px !important;
+}
+
+.contador {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+/* Botões do contador */
+.btn-contador {
+    background-color: var(--cor-primaria);
+    color: var(--cor-texto-claro);
+    border: none;
+    font-size: 1.8rem;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    line-height: 50px;
+    padding: 0;
+}
+
+.btn-contador:hover {
+    background-color: var(--cor-primaria-hover);
+}
+
+/* Campo numérico do contador */
+.contador-input {
+    font-size: 2.2rem;
+    font-weight: 700;
+    text-align: center;
+    width: 100px;
+    margin: 0 15px;
+    border: none;
+    border-bottom: 2px solid var(--cor-borda);
+    padding: 5px;
+    box-sizing: border-box;
+    color: var(--cor-texto-primario);
+    transition: border-color 0.3s ease;
+}
+
+.contador-input:focus {
+    outline: none;
+    border-bottom-color: var(--cor-primaria);
+}
+
+/* Remove setas padrão dos inputs numéricos */
+.contador-input::-webkit-outer-spin-button,
+.contador-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.contador-input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+/* ------------------------------
+   SEÇÃO DE NECESSIDADES ESPECIAIS (NES)
+   ------------------------------ */
+.titulo-nes {
+    text-align: left;
+    margin-top: 15px;
+    font-size: 1.3rem;
+    color: var(--cor-texto-primario);
+    border-bottom: 2px solid #f2f2f2;
+    padding-bottom: 5px;
+}
+
+.lista-nes {
+    max-height: 350px;
+    overflow-y: auto;
+    padding: 10px 5px;
+}
+
+.lista-nes::-webkit-scrollbar {
+    width: 8px;
+}
+
+.lista-nes::-webkit-scrollbar-thumb {
+    background-color: #cccccc;
+    border-radius: 8px;
+}
+
+.lista-nes::-webkit-scrollbar-thumb:hover {
+    background-color: #bbbbbb;
+}
+
+/* Grupo de NES */
+.nes-group {
+    margin-bottom: 15px;
+}
+
+.nes-group h4 {
+    margin: 10px 0 8px 0;
+    color: var(--cor-texto-secundario);
+    font-weight: 600;
+}
+
+/* Item de aluno NES */
+.nes-item {
+    background-color: var(--cor-fundo-card);
+    border: 1px solid var(--cor-borda);
+    border-radius: 10px;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+    border-left: 5px solid var(--cor-borda);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.nes-item.ativo {
+    background-color: #d1e7dd;
+    border-color: #d1e7dd;
+    border-left-color: var(--cor-sucesso);
+}
+
+.nes-item img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.nes-item span {
+    flex-grow: 1;
+    font-weight: 500;
+    color: var(--cor-texto-primario);
+}
+
+/* ------------------------------
+   INTERRUPTOR (SWITCH)
+   ------------------------------ */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+    margin-left: auto;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #cccccc;
+    transition: 0.4s;
+    border-radius: 24px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+input:checked + .slider {
+    background-color: var(--cor-sucesso);
+}
+
+input:checked + .slider:before {
+    transform: translateX(20px);
+}
+
+/* ------------------------------
+   LOADING SPINNER
+   ------------------------------ */
+.carregando {
+    text-align: center;
+    padding: 50px;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #dddddd;
+    border-top: 5px solid var(--cor-primaria);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 10px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ------------------------------
+   RESPONSIVIDADE
+   ------------------------------ */
+@media (max-width: 768px) {
+    .contagem-section {
+        margin: 10px;
+        padding: 15px;
+        max-height: 85vh;
+        margin-top: 10px;
+        min-width: 95vw;
+    }
+
+    .turmas-grid {
+        grid-template-columns: 1fr; /* Uma coluna no celular */
+    }
+
+    .total-geral strong {
+        font-size: 1.6rem;
+    }
+
+    
+    .total-geral i {
+        color: var(--cor-primaria);
+        margin-right: 15px;
+        font-size: 1.3rem;
+    }
+    
+    .total-geral strong {
+        font-size: 1.3rem;
+        color: var(--cor-texto-primario);
+    }
+}
+.swal2-popup {
+    border-radius: 20px !important; /* Arredondamento mais suave no modal */
+    padding-bottom: 30px !important;
+}
+
+.contador {
+    margin-left: -15vw;
+    margin-right: -15vw;
+    
+}
+
+/* Botões do contador (Agora quadradinhos) */
+.btn-contador {
+    background-color: var(--cor-primaria);
+    color: var(--cor-texto-claro);
+    border: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px; /* Deixa quadrado com pontas arredondadas */
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(139, 0, 0, 0.2);
+}
+
+.btn-contador:hover {
+    background-color: var(--cor-primaria-hover);
+    transform: translateY(-2px); /* Efeito de clique leve */
+    box-shadow: 0 6px 12px rgba(139, 0, 0, 0.3);
+}
+
+.btn-contador:active {
+    transform: translateY(1px);
+}
+
+/* Campo numérico do contador */
+.contador-input {
+    max-width: 10vh;
+}
+

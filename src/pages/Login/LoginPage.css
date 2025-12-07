@@ -1,0 +1,426 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;900&display=swap');
+
+/* Reset Básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Background da página de login */
+.login-background {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-image: url('../../assets/img/main.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 20px;
+}
+
+/* Contêiner principal (o "box") */
+.box {
+  position: relative;
+  width: 100%;
+  max-width: 450px;
+  height: 500px;
+  background: #fbff00;
+  border-radius: 8px;
+  padding-top: 80px;
+  overflow: hidden;
+  transform-style: preserve-3d;
+}
+
+/* Efeitos de borda giratória */
+.box::before,
+.box::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 400px;
+  height: 400px;
+  background: linear-gradient(0deg, transparent, transparent, #ff0000, #f2ff00);
+  z-index: 1;
+  transform-origin: bottom right;
+  animation: rotate 6s linear infinite;
+}
+
+.box::after {
+  animation-delay: -3s;
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Círculo com arredondamento inferior para a logo */
+.logo-container {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  width: 120px;
+  height: 120px;
+  background: #f7f7f7;
+  border-radius: 0 0 60px 60px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #990000;
+}
+
+.logo-container img {
+  width: 100px;
+  height: auto;
+  margin-top: 5px;
+}
+
+/* Formulário de Login */
+.box form {
+  position: absolute;
+  inset: 4px;
+  background: #ffffff;
+  padding: 40px 30px;
+  border-radius: 8px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.box form h2 {
+  color: #000000;
+  font-weight: 500;
+  text-align: center;
+  letter-spacing: 0.1em;
+  font-size: 40px;
+  margin-top: 60px;
+}
+
+.box form .inputBox {
+  position: relative;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.box form .inputBox input {
+  width: 100%;
+  padding: 10px;
+  background: transparent; /* Fundo do input é transparente */
+  border: none;
+  outline: none;
+  color: #000;
+  font-size: 1em;
+  letter-spacing: 0.05em;
+  transition: 0.5s;
+  z-index: 10;
+  border-radius: 4px;
+}
+
+.box form .inputBox span {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  color: #8c8c8c;
+  font-size: 1em;
+  pointer-events: none;
+  transition: 0.5s;
+}
+
+.box form .inputBox input:focus ~ span,
+.box form .inputBox input:valid ~ span {
+  top: -10px;
+  color: #959595;
+  font-size: 0.75em;
+}
+
+/* Elemento 'i' que funciona como a borda animada */
+.box form .inputBox i {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: #ffffff00; /* Fundo DEVE SER transparente */
+  border: 1px solid #868686; /* Borda cinza em repouso */
+  border-radius: 4px;
+  overflow: hidden;
+  transition: 0.5s;
+  pointer-events: none;
+}
+
+/* ========================================================= */
+/* CORREÇÃO APLICADA AQUI                                    */
+/* ========================================================= */
+.box form .inputBox input:focus ~ i,
+.box form .inputBox input:valid ~ i {
+  height: 44px;               /* A animação de altura continua */
+  border-color: #990000;      /* << APENAS A COR DA BORDA MUDA para vermelho */
+  /* NENHUM 'background' é adicionado aqui, resolvendo o problema */
+}
+/* ========================================================= */
+
+.box form input[type="submit"] {
+  border: none;
+  outline: none;
+  padding: 10px;
+  background: #910000; /* Cor de fundo do botão */
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 0.9em;
+  border-radius: 4px;
+  font-weight: 600;
+  width: 100%;
+  margin-top: 50px;
+  transition: 0.3s;
+}
+
+.box form input[type="submit"]:hover {
+  background: #c00;
+}
+
+.box form input[type="submit"]:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.terms-container {
+  margin-top: 15px;
+  font-size: 0.9em;
+  color: #555;
+  text-align: center;
+}
+
+.terms-container a {
+  color: #910000;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s;
+  cursor: pointer;
+}
+
+.terms-container a:hover {
+  color: #c00;
+  text-decoration: underline;
+}
+
+.error-message {
+  color: #c00;
+  text-align: center;
+  font-size: 0.9em;
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+
+@media (max-width: 768px) {
+  .box {
+    position: relative;
+    min-width: 80px;
+    height: 390px;
+    background: #fbff00;
+    border-radius: 8px;
+    padding-top: 80px; 
+    overflow: hidden;  
+    transition: transform 0.8s ease-in-out;
+    transform-style: preserve-3d;
+  }
+
+  
+  .box::before,
+  .box::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 100%;
+    height: 370px;
+    background: linear-gradient(0deg, transparent, transparent, #ff0000, #f2ff00);
+    z-index: 1;
+    transform-origin: bottom right;
+    animation: rotate 6s linear infinite;
+    clip-path: inset(0px 0px 0px 0px);
+  }
+  
+  .box::after {
+    animation-delay: -3s;
+  }
+  
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .logo-container {
+    position: absolute;
+    top: -5px; /* Ajustado para descer mais o círculo dentro do contêiner */
+    left: 50%;
+    transform: translateX(-50%); /* Centraliza o círculo horizontalmente */
+    z-index: 10; /* Faz com que a bola fique sobre os outros elementos */
+    width: 90px;
+    height: 90px;
+    background: #f7f7f7;
+    border-radius: 0 0 60px 60px; /* Apenas a parte inferior é arredondada */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #990000;
+  }
+  
+  /* Logo dentro do círculo */
+  .logo-container img {
+    width: 80px; /* Ajuste o tamanho da logo */
+    height: auto;
+    margin-top: 2px; /* Ajuste a margem para a logo descer um pouco dentro do círculo */
+  }
+  
+  
+  /* Formulário */
+  .box form {
+    position: absolute;
+    inset: 4px;
+    background: #ffffff;
+    padding: 40px 30px;
+    border-radius: 8px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 343px;
+  }
+  
+  #problemForm.hidden {
+    display: none;
+  }
+  
+  .box form h2 {
+    color: #000000;
+    font-weight: 500;
+    text-align: center;
+    letter-spacing: 0.1em;
+    font-size: 30px;
+    margin-top: 40px;
+  }
+  
+  .box form .inputBox {
+    position: relative;
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  .box form .inputBox input {
+    width: 100%;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    outline: none;
+    color: #000;
+    font-size: 1em;
+    letter-spacing: 0.05em;
+    transition: 0.5s;
+    z-index: 10;
+    border-radius: 4px;
+  }
+  
+  .box form .inputBox span {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    color: #8c8c8c;
+    font-size: 1em;
+    pointer-events: none;
+    transition: 0.5s;
+  }
+  
+  .box form .inputBox input:focus ~ span,
+  .box form .inputBox input:valid ~ span {
+    top: -10px;
+    color: #959595;
+    font-size: 0.75em;
+  }
+  
+  .box form .inputBox i {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: #ffffff00;
+    border: 1px solid #868686;
+    border-radius: 4px;
+    overflow: hidden;
+    transition: 0.5s;
+    pointer-events: none;
+    color: #000000;
+  }
+  
+  .box form .inputBox input:focus ~ i,
+  .box form .inputBox input:valid ~ i {
+    height: 44px;
+  }
+  
+  .box form input[type="submit"] {
+    border: none;
+    outline: none;
+    padding: 10px;
+    background: #910000;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 0.9em;
+    border-radius: 4px;
+    font-weight: 600;
+    width: 100%;
+    margin-top: 20px;
+    transition: 0.3s;
+  }
+  
+  .box form input[type="submit"]:hover {
+    background: #990000;
+  }
+  
+  /* Termos e Política */
+  .terms-container {
+    margin-top: 15px;
+    font-size: 0.8em;
+    color: #555;
+    text-align: center;
+  }
+  
+  .terms-container a {
+    color: #910000;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s;
+    cursor: pointer;
+  }
+  
+  .terms-container a:hover {
+    color: #990000;
+    text-decoration: underline;
+  }
+
+}
+
+/* Adicione no final do seu arquivo LoginPage.css */
+.link-style {
+  color: #910000;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.link-style:hover {
+  text-decoration: underline;
+}
