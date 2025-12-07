@@ -17,7 +17,7 @@ O sistema conta com **backend em Laravel** e **frontend em React**, utilizando *
 ---
 
 ## 📷 Logo do projeto
-![Logo Menu Solutions](scr/assets/img/menu.png)
+![Logo Menu Solutions](./scr/assets/img/menu.png)
 
 ---
 
@@ -25,3 +25,4 @@ O sistema conta com **backend em Laravel** e **frontend em React**, utilizando *
 1. Clone o repositório:
    ```bash
    git clone https://github.com/seu-usuario/seu-repo.git
+
