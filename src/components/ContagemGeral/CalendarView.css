@@ -1,0 +1,241 @@
+/* /src/components/ContagemGeral/CalendarView.css */
+
+/* --- Layout Principal do Calendário (Grid de 3 Colunas) --- */
+.calendar-main-grid {
+    display: grid;
+    grid-template-columns: 12vw 43vw 22vw;
+    gap: 1rem; /* Reduzido */
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e0e0e0;
+    overflow: hidden;
+    
+    /* CHAVE: Remove altura fixa e faz o grid preencher o espaço restante */
+    flex-grow: 1;
+    min-height: 80vh; /* Permite que o flex item encolha */
+    
+}
+
+/* --- Coluna 1: Sidebar (Navegação Ano/Mês) --- */
+.calendar-sidebar {
+    background-color: #343a40;
+    color: #f8f9fa;
+    padding: 1rem 0; /* Reduzido */
+    border-right: 1px solid #495057;
+    display: flex;
+    flex-direction: column;
+}
+
+.year-selector {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+    margin-bottom: 1rem; /* Reduzido */
+    flex-shrink: 0;
+    max-height: 80vh;
+    overflow-y: hidden; /* Garante que o conteúdo não vaze */
+    
+}
+.year-selector button {
+    background: none;
+    border: none;
+    color: #f8f9fa;
+    font-size: 1.25rem; /* Reduzido */
+    cursor: pointer;
+    padding: 0.4rem; /* Reduzido */
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+}
+.year-selector button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+.year-selector span {
+    font-size: 1.4rem; /* Reduzido */
+    font-weight: 700;
+}
+
+.month-list {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 0 0.5rem;
+}
+.month-item {
+    padding: 0.6rem 0.8rem; /* Reduzido */
+    margin: 0.1rem 0; /* Reduzido */
+    cursor: pointer;
+    font-size: 1rem; /* Reduzido */
+    border-radius: 6px; /* Reduzido */
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+.month-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+.month-item.active {
+    background-color: #8B0000;
+    color: white;
+    font-weight: 600;
+}
+
+/* --- Coluna 2: Área Principal do Calendário --- */
+.calendar-grid-area {
+    position: relative;
+    padding: 3rem; /* Reduzido */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; 
+
+}
+
+.calendar-loading-overlay-custom {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    border-radius: 12px;
+    font-size: 1rem;
+    color: #555;
+}
+.calendar-loading-overlay-custom .spinner {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 1rem;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #8B0000;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.calendar-header {
+    text-align: center;
+    flex-shrink: 0;
+}
+.calendar-month-display {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #212529;
+}
+
+.calendar-subtitle {
+    text-align: center;
+    color: #6c757d;
+    margin-bottom: 1rem; /* Espaçamento abaixo dele */
+    font-size: 1rem;
+    margin-top: -0.5rem; /* Puxa para perto do título do mês */
+    flex-shrink: 0;
+}
+
+.calendar-days-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    margin-bottom: 0.25rem;
+    flex-shrink: 0;
+}
+.weekday-name {
+    text-align: center;
+    font-weight: 600;
+    color: #6c757d;
+    padding: 0.25rem 0;
+    font-size: 0.9rem;
+}
+
+.calendar-body {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(6, 1fr); /* Isso faz os dias preencherem o espaço */
+    flex-grow: 1; 
+    position: relative;
+    gap: 2px;
+    min-height: 0;
+}
+
+.calendar-day-tile {
+    /* height: auto; (Altura é controlada pelo grid-template-rows) */
+    border: 1px solid #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    position: relative;
+    border-radius: 4px;
+    min-height: 70px; /* Altura mínima para dias */
+    overflow: hidden;
+}
+.calendar-day-tile:hover {
+    background-color: #f8f9fa;
+    border-color: #d0d0d0;
+}
+.calendar-day-tile.empty {
+    background-color: #fcfcfc;
+    border-color: #f7f7f7;
+    cursor: default;
+}
+.calendar-day-tile.empty:hover {
+    background-color: #fcfcfc;
+    border-color: #f7f7f7;
+}
+
+.day-number {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.2rem;
+}
+
+.day-total-bubble {
+    background-color: #006400;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.2rem 0.5rem;
+    border-radius: 10px;
+    margin-top: auto;
+    align-self: flex-start;
+}
+
+.calendar-day-tile.today {
+    background-color: #fffde7;
+    border: 2px solid #ffeb3b;
+    z-index: 1;
+}
+
+.calendar-day-tile.selected {
+    background-color: #8B0000;
+    color: white;
+    border: 2px solid #8B0000;
+    z-index: 2;
+}
+.calendar-day-tile.selected .day-number {
+    color: white;
+}
+.calendar-day-tile.selected .day-total-bubble {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+.calendar-day-tile.selected.has-data .day-total-bubble {
+    background-color: #4CAF50;
+}
+
+
+/* ================== CORREÇÃO AQUI ================== */
+/* --- Coluna 3: Painel de Detalhes (Estilo do Container) --- */
+/* Este estilo define a TERCEIRA COLUNA do grid */
+.calendar-details-panel {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-left: 1px solid #e0e0e0;
+    overflow-y: hidden; /* A rolagem será interna no .details-panel-content */
+    display: flex;
+    flex-direction: column;
+}
+/* ================== FIM DA CORREÇÃO ================ */

@@ -1,0 +1,215 @@
+/* /src/components/ContagemGeral/DetailsPanel.css */
+
+/* O estilo .calendar-details-panel foi REMOVIDO daqui */
+
+.details-panel-loading,
+.details-panel-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #6c757d;
+    text-align: center;
+}
+.details-panel-loading .spinner {
+    width: 35px;
+    height: 35px;
+    margin-bottom: 1rem;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #8B0000;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+/* Keyframes do Spinner (Necessário aqui também) */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.details-panel-empty h3 {
+    margin-bottom: 0.5rem;
+    color: #495057;
+}
+
+/* Este é o container do CONTEÚDO que o DetailsPanel renderiza */
+.details-panel-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    min-height: 0;
+}
+
+.details-date {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #212529;
+    margin-bottom: 1rem;
+    text-align: center;
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 0.75rem;
+    flex-shrink: 0;
+}
+
+/* Abas no Painel de Detalhes */
+.details-toggle {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #e9ecef;
+    flex-shrink: 0;
+}
+.details-toggle .toggle-btn {
+    padding: 0.5rem 0.75rem;
+    border: none;
+    background-color: transparent;
+    color: #6c757d;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+}
+.details-toggle .toggle-btn.active {
+    color: #8B0000;
+    border-bottom-color: #8B0000;
+}
+
+.details-tab-content {
+    display: none;
+    flex-grow: 1;
+    min-height: 0;
+    overflow: hidden;
+    flex-direction: column;
+}
+.details-tab-content.active {
+    display: flex;
+}
+
+/* --- Estilos de Itens do Modal/Painel (Reutilizados do DashboardNutri.css) --- */
+.modal-list {
+    padding: 0;
+    text-align: left;
+}
+.modal-list.scrollable {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+    max-height: none; /* Remove altura máxima fixa */
+}
+.modal-list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6rem;
+    border-bottom: 1px solid #eee;
+    font-size: 0.95rem;
+    background-color: #ffffff;
+    margin-bottom: 2px;
+    border-radius: 4px;
+}
+.modal-list-item:last-child {
+    border-bottom: none;
+}
+.modal-no-data {
+    color: #666;
+    text-align: center;
+    padding: 1rem;
+    font-style: italic;
+}
+
+/* Card de Total no Modal */
+.modal-total-card {
+    background-color: #212529;
+    color: white;
+    padding: 0.75rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
+}
+.modal-total-card span {
+    font-size: 0.9rem;
+    display: block;
+    opacity: 0.8;
+}
+.modal-total-card strong {
+    font-size: 1.8rem;
+    display: block;
+    line-height: 1.2;
+}
+
+/* Headers de Seção */
+.modal-section-header {
+    text-align: left;
+    color: #333;
+    border-bottom: 2px solid #dee2e6;
+    padding-bottom: 0.4rem;
+    margin-bottom: 0.6rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+.modal-categoria-header {
+    text-align: left;
+    background-color: #e9ecef;
+    padding: 0.5rem 0.75rem;
+    margin-top: 0.8rem;
+    margin-bottom: 0.5rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+    flex-shrink: 0;
+}
+
+/* Acordeão do Modal NAI */
+.modal-accordion {
+    border: 1px solid #f0f0f0;
+    border-radius: 6px;
+    margin-bottom: 5px;
+    background-color: #ffffff;
+    flex-shrink: 0;
+}
+.modal-accordion summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6rem;
+    font-size: 0.95rem;
+    cursor: pointer;
+    list-style: none;
+    font-weight: 500;
+    color: #495057;
+}
+.modal-accordion summary::-webkit-details-marker { display: none; }
+.modal-accordion summary .bi { transition: transform 0.3s ease; }
+.modal-accordion[open] summary .bi { transform: rotate(180deg); }
+.modal-accordion-content {
+    padding: 0.5rem 1rem 1rem 1rem;
+    background-color: #fcfcfc;
+    border-top: 1px dashed #e0e0e0;
+    font-size: 0.9rem;
+    color: #6c757d;
+    line-height: 1.6;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    /* Permite quebra de linha em texto longo */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+.modal-turma-header {
+    text-align: left;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.25rem;
+    border-bottom: 2px solid #8B0000;
+    color: #8B0000;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+.modal-turma-header:first-of-type {
+    margin-top: 0;
+}

@@ -1,0 +1,128 @@
+.menu-lateral {
+    position: absolute;
+    top: 0;
+    right: -250px;
+    width: 250px;
+    height: 100%;
+    background-color: #222;
+    color: white;
+    transition: right 0.3s ease;
+    padding-top: 80px;
+    box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Nome do usuário centralizado */
+.nome-usuario-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1vh;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+}
+.menu-lateral {
+    z-index: 998;
+  }
+  
+.nome-usuario-container i {
+    margin-right: 8px;
+    font-size: 20px;
+}
+
+.nome-usuario-container span {
+    margin-bottom: 8px;
+}
+
+.nome-usuario-container hr {
+    width: 60%;
+    border: 3px solid #f1c40f; /* Linha amarela */
+    margin-top: 8px;
+}
+
+.menu-lateral .opcoes {
+    list-style: none;
+    padding: 0;
+    margin-top: 0px;
+}
+
+.menu-lateral .opcoes li {
+    padding: 7px;
+    text-align: left; 
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    margin-bottom: -10px;
+    
+}
+
+.menu-lateral .opcoes li:hover {
+    background-color: #f1c40f;
+    color: #000;
+}
+
+.menu-lateral .sair {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    background-color: #c00;
+    color: white;
+    cursor: pointer;
+    margin-top: 90%;
+}
+
+.menu-lateral.aberto {
+    right: 0px;
+}
+
+.menu-lateral.aberto ~ .menu-hamburguer {
+    right: 270px;
+}
+.menu-lateral .opcoes li a {
+    color: white;           /* Cor branca */
+    text-decoration: none;  /* Sem sublinhado */
+    display: block;         /* Link ocupa toda área do li */
+    width: 100%;
+  }
+  
+  .menu-lateral .opcoes li a:hover {
+    color: #000;
+    background-color: #f1c40f;
+  }
+  
+  .menu-lateral .opcoes li {
+    padding: 0; /* Remove o padding do li, pq vamos usar no a */
+}
+
+.menu-lateral .opcoes li a {
+    display: flex;           /* para ícone + texto ficarem alinhados */
+    align-items: center;     
+    color: white;
+    text-decoration: none;
+    padding: 15px;           /* mantém o espaçamento igual */
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.menu-lateral .opcoes li a:hover {
+    background-color: #f1c40f;
+    color: #000;
+}
+
+#iconeMenu {
+    transition: transform 0.3s ease;
+  }
+  
+  #iconeMenu.girar {
+    transform: rotate(90deg);
+  }
+@media (max-width: 768px) {
+  .menu-lateral {
+    width: 200px;
+    right: -200px;
+  }
+}

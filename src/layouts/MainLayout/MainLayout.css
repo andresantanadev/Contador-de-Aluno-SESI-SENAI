@@ -1,0 +1,34 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  height: 90vh;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: margin-right 0.3s ease;
+  margin-right: 0;
+  padding-bottom: 80px;
+  overflow-y: hidden; /* "none" não é valor válido */
+}
+
+.main-content {
+  position: relative;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto 100%; /* altura = main, largura automática */
+  background-attachment: fixed; /* opcional */
+  background-color: #000;
+  height: 89vh; /* ocupa altura total da viewport (ou mude pra 87vh pra igualar ao main) */
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    padding: 10px;
+  }
+}

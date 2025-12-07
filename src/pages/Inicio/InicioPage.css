@@ -1,0 +1,138 @@
+/* ========================================================= */
+/* ESTILOS GERAIS                                            */
+/* ========================================================= */
+.inicio-container {
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: calc(100vh - 80px); /* Centraliza verticalmente descontando header */
+}
+
+.buttons-section {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  display: grid;
+  gap: 20px;
+  transition: all 0.3s ease;
+}
+
+/* ========================================================= */
+/* ESTILO DOS BOTÕES                                         */
+/* ========================================================= */
+.main-button {
+  background-color: #8B0000; /* Cor padrão fallback */
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 25px; /* Botões mais robustos */
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: row; /* Ícone ao lado do texto */
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  min-height: 80px;
+}
+
+.main-button i {
+  font-size: 1.5rem;
+  margin-bottom: 0;
+}
+
+.main-button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+  filter: brightness(1.1); 
+}
+
+.main-button:active {
+  transform: translateY(-1px);
+}
+
+/* ========================================================= */
+/* LAYOUT PADRÃO (INSPETORA) - 2 COLUNAS                     */
+/* ========================================================= */
+/* Esse seletor pega o container quando NÃO tem a classe 'wide-grid' */
+.buttons-section:not(.wide-grid) {
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 900px;
+}
+
+/* TRUQUE DE CENTRALIZAÇÃO PARA INSPETORA (5 itens em 2 colunas) */
+/* O 5º item (Meu Perfil) deve ocupar as duas colunas ou ficar centralizado */
+/* Opção A: Ocupar a linha inteira */
+/* .buttons-section:not(.wide-grid) .main-button:last-child {
+  grid-column: 1 / -1; 
+  max-width: 50%; 
+  margin: 0 auto; 
+} */
+
+/* Opção B (Sua preferência): Centralizado ocupando as duas colunas */
+.buttons-section:not(.wide-grid) .main-button:last-child {
+    grid-column: span 2; /* Faz o botão ocupar a largura de 2 colunas */
+    width: 50%; /* Reduz a largura para parecer um botão normal centralizado */
+    margin: 0 auto; /* Centraliza horizontalmente */
+}
+
+/* ========================================================= */
+/* LAYOUT LARGO (NUTRICIONISTA & DIRETORA) - 3 COLUNAS       */
+/* ========================================================= */
+.buttons-section.wide-grid {
+  grid-template-columns: repeat(3, 1fr);
+  max-width: 1200px;
+}
+
+/* Centralização do último item (10º) no grid de 3 colunas */
+.buttons-section.wide-grid .main-button:last-child {
+  grid-column: 2; 
+}
+
+/* ========================================================= */
+/* RESPONSIVIDADE (MOBILE)                                   */
+/* ========================================================= */
+@media (max-width: 900px) {
+  .inicio-container {
+    padding: 20px 15px;
+  }
+
+  /* Reseta para auto-fit em telas menores */
+  .buttons-section, 
+  .buttons-section.wide-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important; 
+    padding: 20px;
+    gap: 15px;
+    max-width: 100%;
+  }
+
+  /* Remove as centralizações forçadas no mobile */
+  .buttons-section:not(.wide-grid) .main-button:last-child,
+  .buttons-section.wide-grid .main-button:last-child {
+    grid-column: auto;
+    width: 100%;
+    margin: 0;
+  }
+
+  .main-button {
+    font-size: 1rem;
+    padding: 20px;
+    text-align: left;
+    justify-content: flex-start;
+  }
+  
+  .main-button i {
+    font-size: 1.5rem;
+    margin-right: 10px;
+  }
+}

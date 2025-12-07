@@ -1,0 +1,56 @@
+/* /src/components/ContagemGeral/ReportTypeSidebar.css */
+
+/* Coluna 1: Sidebar de Tipos */
+.report-type-sidebar {
+    background-color: #343a40; /* Mesmo azul do calendário */
+    color: #f8f9fa;
+    padding: 1rem 0;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+}
+
+.report-type-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    padding: 0 1.25rem;
+    margin-bottom: 1rem;
+    color: #fff;
+}
+
+.report-type-list {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 0 0.5rem;
+}
+
+.report-type-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 0.8rem 1rem;
+    margin: 0.1rem 0;
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 6px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    background: none;
+    border: none;
+    color: #f8f9fa;
+    text-align: left;
+}
+
+.report-type-item .bi {
+    font-size: 1.1rem;
+}
+
+.report-type-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.report-type-item.active {
+    background-color: #8B0000; /* Sua cor principal */
+    color: white;
+    font-weight: 600;
+}

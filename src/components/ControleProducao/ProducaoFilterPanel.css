@@ -1,0 +1,115 @@
+/* /src/components/ControleProducao/ProducaoFilterPanel.css */
+
+/* Coluna 3: Painel de Filtros (Direita) */
+.producao-filter-panel {
+    background-color: #f8f9fa; /* Cor clara */
+    border-left: 1px solid #e0e0e0;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    overflow-y: auto;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Esconde o painel se não estiver no modo relatório */
+.producao-filter-panel.hidden {
+    opacity: 0;
+    transform: translateX(20px);
+    pointer-events: none;
+    /* Oculta mas mantém no layout para não quebrar o grid */
+    visibility: hidden; 
+}
+.producao-filter-panel.visible {
+    opacity: 1;
+    transform: translateX(0);
+    visibility: visible;
+}
+
+
+.filter-section {
+    border-bottom: 1px solid #e9ecef;
+    padding-bottom: 1.5rem;
+}
+.filter-section:last-of-type {
+    border-bottom: none;
+}
+
+.filter-section-title {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: #333;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.filter-group label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 2px;
+}
+
+.filter-group input[type="date"],
+.filter-group input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    background-color: #fff;
+    box-sizing: border-box; /* Garante que o padding não quebre o layout */
+}
+
+/* Ações na base do painel */
+.report-actions {
+    margin-top: auto; /* Empurra para o final */
+    padding-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.report-actions button {
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.report-actions .btn-gerar {
+    background-color: #27ae60; /* Verde */
+    color: white;
+}
+.report-actions .btn-gerar:hover {
+    background-color: #229954;
+}
+.report-actions .btn-gerar:disabled {
+    background-color: #95a5a6;
+    cursor: not-allowed;
+}
+
+.report-actions .btn-baixar {
+    background-color: #2980b9; /* Azul */
+    color: white;
+}
+.report-actions .btn-baixar:hover {
+    background-color: #2471a3;
+}
+.report-actions .btn-baixar:disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
+}

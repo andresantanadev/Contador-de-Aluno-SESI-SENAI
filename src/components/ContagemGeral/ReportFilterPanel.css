@@ -1,0 +1,105 @@
+/* /src/components/ContagemGeral/ReportFilterPanel.css */
+
+/* Coluna 3: Painel de Filtros (Direita) */
+.report-filter-panel {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 1.25rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    overflow-y: auto;
+}
+
+.filter-section {
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 1.5rem;
+}
+.filter-section:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.filter-section-title {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: #333;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.filter-group label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 2px;
+}
+
+.filter-group input[type="date"],
+.filter-group input[type="number"],
+.filter-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    background-color: #fcfcfc;
+}
+
+.input-ano {
+    max-width: 120px;
+}
+
+/* Ações na base do painel */
+.report-actions {
+    margin-top: auto; /* Empurra para o final */
+    padding-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.report-actions button {
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.report-actions .btn-gerar {
+    background-color: #27ae60; /* Verde */
+    color: white;
+}
+.report-actions .btn-gerar:hover {
+    background-color: #229954;
+}
+.report-actions .btn-gerar:disabled {
+    background-color: #95a5a6;
+    cursor: not-allowed;
+}
+
+.report-actions .btn-baixar {
+    background-color: #b92929; /* Azul */
+    color: white;
+}
+.report-actions .btn-baixar:hover {
+    background-color: #a32424;
+}
+.report-actions .btn-baixar:disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
+}

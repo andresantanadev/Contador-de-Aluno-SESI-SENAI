@@ -1,0 +1,225 @@
+
+/* --- Container Principal --- */
+.dashboard-nutri-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  font-family: 'Arial', sans-serif;
+}
+
+/* --- Seletor de Modo (Toggle) --- */
+.mode-toggle {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+  background-color: #e9ecef;
+  border-radius: 50px;
+  padding: 0.5rem;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10vh;
+}
+.toggle-btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 50px;
+  background-color: transparent;
+  color: #495057;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.toggle-btn.active {
+  background-color: #ffffff;
+  color: #881717; /* Azul */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+.toggle-btn .bi {
+  margin-right: 0.5rem;
+}
+
+/* * MUDANÇA: Novo container para os cards
+* Este é o container branco com scroll
+*/
+.dash-grid-container {
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid #dee2e6;
+  max-height: 65vh; /* Altura máxima, 65% da tela */
+  overflow-y: auto; /* Scroll vertical */
+}
+
+/* --- Grid de Cards --- */
+.dash-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  /* margin-bottom foi movido para o container */
+}
+
+/* --- Card Individual --- */
+.dash-card {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid #dee2e6;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+/* MUDANÇA: Efeito hover apenas em cards clicáveis */
+.dash-card.clickable {
+  cursor: pointer;
+}
+.dash-card.clickable:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+.dash-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  background-color: #8B0000; /* Vermelho Escuro */
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+.dash-card-header .bi {
+  font-size: 1.3rem;
+}
+/* * MUDANÇA: Números menores e centralizados 
+*/
+.dash-card-body {
+  padding: 1.5rem 1.25rem;
+  font-size: 2.25rem; /* <-- Um pouco menor */
+  font-weight: 700;
+  color: #343a40;
+  text-align: center; /* <-- Centralizado */
+}
+
+/* Cores Especiais */
+.dash-card.nai-card .dash-card-header {
+  background-color: #FFC000; /* Verde Escuro */
+}
+.dash-card.total-card .dash-card-header {
+  background-color: #212529; /* Preto */
+}
+
+/* --- Botão Avançar --- */
+.dash-avancar-btn {
+  display: block;
+  width: fit-content;
+  margin: 2rem auto 0;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background-color: #8B0000; /* Vermelho Escuro */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.dash-avancar-btn:hover {
+  background-color: #a50000;
+}
+
+/* --- Estilos do Modal --- */
+.modal-list {
+  padding: 0 1rem;
+  text-align: left;
+}
+/* MUDANÇA: Scroll aplicado a todos os modais */
+.modal-list.scrollable {
+  max-height: 450px; /* Max-height para o conteúdo do modal */
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+.modal-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  border-bottom: 1px solid #eee;
+  font-size: 1.1rem;
+}
+.modal-list-item.simple {
+  justify-content: flex-start;
+}
+.modal-list-item:last-child {
+  border-bottom: none;
+}
+.modal-turma-header {
+  text-align: left;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.25rem;
+  border-bottom: 2px solid #8B0000;
+  color: #8B0000;
+}
+.modal-turma-header:first-of-type {
+  margin-top: 0;
+}
+
+/* Acordeão do Modal NAI */
+.modal-accordion {
+  border-bottom: 1px solid #eee;
+}
+.modal-accordion:last-child {
+  border-bottom: none;
+}
+.modal-accordion summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  list-style: none; /* Remove a flecha padrão */
+}
+.modal-accordion summary::-webkit-details-marker {
+  display: none; /* Remove a flecha padrão no Chrome */
+}
+.modal-accordion summary .bi {
+  transition: transform 0.3s ease;
+}
+.modal-accordion[open] summary .bi {
+  transform: rotate(180deg);
+}
+.modal-accordion-content {
+  padding: 0.5rem 1rem 1rem 1rem;
+  background-color: #f8f9fa;
+  border-top: 1px dashed #ddd;
+  font-size: 1rem;
+  color: #495057;
+  line-height: 1.6;
+}
+
+/* --- Spinner --- */
+.carregando-dash {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 0;
+  color: #6c757d;
+}
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #8B0000;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

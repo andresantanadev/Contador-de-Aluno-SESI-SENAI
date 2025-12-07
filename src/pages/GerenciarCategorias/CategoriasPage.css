@@ -1,0 +1,262 @@
+/* Container Principal (Fundo Geral) */
+.estrutura-container {
+    display: grid;
+    grid-template-columns: 320px 1fr; /* Lateral um pouco mais larga */
+    gap: 2rem;
+    padding: 2rem;
+    background-color: #f8f9fa; /* Mesmo fundo cinza claro da pág. usuários */
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+    animation: fadeIn 0.5s ease-in-out;
+        box-shadow: 0 4px 8px rgba(40, 167, 69, 0.2);
+    border-radius: 10px;
+    height: 80vh;
+    max-width: 80vw;
+    margin-top: 8vh;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Painéis (Cards Brancos) */
+.panel-lateral, .panel-central {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05); /* Sombra suave idêntica */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid #e9ecef; /* Borda sutil */
+}
+
+/* Cabeçalhos dos Painéis */
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    background-color: #fff;
+    border-bottom: 2px solid #f8f9fa;
+    flex-shrink: 0;
+}
+
+.panel-header h3 { 
+    margin: 0; 
+    font-size: 1.25rem; 
+    color: #333; 
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* --- LISTA LATERAL (CATEGORIAS) --- */
+.list-container {
+    overflow-y: auto;
+    padding: 1rem;
+    flex-grow: 1;
+}
+
+.list-item-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+    color: #495057;
+}
+
+.list-item-container:hover { 
+    background-color: #f1f3f5; 
+    transform: translateX(3px);
+}
+
+.list-item-container.active { 
+    background-color: #e8f5e9; /* Verde bem claro */
+    color: #155724; 
+    border-color: #c3e6cb;
+    font-weight: 600;
+}
+
+.list-item-name { 
+    flex-grow: 1; 
+    font-size: 0.95rem;
+}
+
+.list-item-actions { 
+    display: flex; 
+    gap: 0.5rem; 
+    opacity: 0.6;
+    transition: opacity 0.2s;
+}
+
+.list-item-container:hover .list-item-actions {
+    opacity: 1;
+}
+
+/* --- TABELA (TURMAS) --- */
+.table-wrapper-turmas {
+    overflow: auto;
+    flex-grow: 1;
+    overflow-x: hidden;
+}
+
+.turmas-table {
+    min-width: 104%;
+}
+
+.turmas-table th {
+    background-color: #faf8f8;
+    color: #6c757d;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    padding: 1rem;
+    text-align: right;
+    border-bottom: 2px solid #e9ecef;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.turmas-table td {
+    padding: 0rem;
+    border-bottom: 1px solid #eee;
+    color: #574949;
+    vertical-align:auto;
+}
+
+.turmas-table tbody tr:hover { 
+    background-color: #fcfcfc; 
+}
+
+/* Badges (Etiquetas) */
+.categoria-badge {
+    padding: 0.35rem 0.8rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: white;
+    background-color: #6c757d; /* Padrão */
+}
+
+/* Cores específicas se desejar manter a lógica de cores por ID */
+.badge-color-0 { background-color: #0d6efd; }
+.badge-color-1 { background-color: #6610f2; }
+.badge-color-2 { background-color: #fd7e14; }
+.badge-color-3 { background-color: #20c997; }
+.badge-color-4 { background-color: #dc3545; }
+
+
+/* --- BOTÕES --- */
+
+/* Botão Principal de Adicionar (Estilo UsuariosPage) */
+.add-button { 
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    text-decoration: none; /* Caso seja link */
+}
+
+.add-button:hover { 
+    background-color: #218838;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.2);
+}
+
+/* Botão Pequeno (+) da Lateral */
+.add-button-small {
+    background-color: #e8f5e9; 
+    color: #28a745; 
+    border: 1px solid transparent;
+    width: 32px; height: 32px; 
+    border-radius: 8px;
+    font-size: 1.2rem; 
+    cursor: pointer; 
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+}
+
+.add-button-small:hover { 
+    background-color: #28a745; 
+    color: white;
+}
+
+/* Ações da Tabela (Estilo UsuariosPage) */
+.coluna-acoes { width: 100px; text-align: right; }
+.actions-cell { display: flex; gap: 0.5rem; justify-content: flex-end; }
+
+/* Botões de Ação (Quadrados Arredondados) */
+.action-button {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: white;
+    padding: 0; /* Reset padding */
+}
+
+.edit-button { background-color: #17a2b8; } /* Azul Petróleo */
+.edit-button:hover { background-color: #138496; }
+
+.delete-button { background-color: #dc3545; } /* Vermelho */
+.delete-button:hover { background-color: #c82333; }
+
+
+.btn-icon-sm:hover { background-color: #e9ecef; color: #495057; }
+.list-item-container.active .btn-icon-sm:hover { background-color: rgba(0,0,0,0.1); color: #155724; }
+
+
+/* Estado Vazio */
+.empty-state {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    color: #adb5bd; 
+    padding: 3rem; 
+    text-align: center;
+    height: 100%;
+}
+.empty-state i { 
+    font-size: 3rem; 
+    margin-bottom: 1rem; 
+    opacity: 0.5;
+}
+
+/* Responsividade */
+@media (max-width: 900px) {
+    .estrutura-container {
+        grid-template-columns: 1fr;
+        height: auto;
+        padding: 1rem;
+    }
+    
+    .panel-lateral {
+        height: 300px; /* Altura fixa no mobile */
+    }
+    
+    .panel-central {
+        min-height: 500px;
+    }
+}

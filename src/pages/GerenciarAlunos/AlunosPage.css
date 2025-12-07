@@ -1,0 +1,162 @@
+.alunos-container {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 1200px;
+  max-height: 80vh;
+  margin-top: 10vh;
+}
+
+.alunos-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #8B0000;
+  padding-bottom: 15px;
+}
+
+.alunos-header h1 {
+  font-size: 1.8rem;
+  color: #333;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  max-height: 54vh;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: -10px;
+}
+
+.alunos-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.alunos-table th, .alunos-table td {
+  padding: 10px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  vertical-align: middle;
+  word-wrap: break-word;
+}
+
+/* Define a largura de cada coluna para um layout estável */
+.alunos-table th:nth-child(1) { width: 35%; } /* Nome */
+.alunos-table th:nth-child(2) { width: 10%; } /* RM */
+.alunos-table th:nth-child(3) { width: 15%; } /* Nascimento */
+.alunos-table th:nth-child(4) { width: 15%; } /* Turma */
+.alunos-table th:nth-child(5) { width: 10%; } /* Gênero */
+.alunos-table th:nth-child(6) { width: 15%; } /* Ações */
+
+
+.alunos-table thead {
+  background-color: #8B0000;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.alunos-table tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
+.coluna-acoes {
+  text-align: center;
+}
+
+.actions-cell {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  gap: 5px;
+}
+
+.pagination-button {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  color: #007bff;
+  border-radius: 4px;
+}
+.pagination-button:hover:not(:disabled) { background-color: #e9ecef; }
+.pagination-button.active { background-color: #007bff; color: white; border-color: #007bff; cursor: default; }
+.pagination-button.disabled { color: #6c757d; cursor: not-allowed; background-color: #e9ecef; }
+
+.alunos-footer {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 40px 
+}
+
+/* Estilos de botões reutilizados */
+.action-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.action-button:hover { transform: translateY(-2px); }
+.add-button { background-color: #28a745; }
+.add-button:hover { background-color: #218838; }
+.back-button { background-color: #333; 
+margin-top: 10px !important;}
+.back-button:hover { background-color: #555; }
+
+.edit-button, .delete-button {
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  flex-grow: 1;
+  justify-content: center;
+}
+.edit-button { background-color: #ffc107; color: #333; }
+.edit-button:hover { background-color: #e0a800; }
+.delete-button { background-color: #dc3545; }
+.delete-button:hover { background-color: #c82333; }
+
+
+/* Estilos para o formulário no Swal */
+.swal-form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-height: 70vh;
+  overflow-y: auto;
+  padding: 10px 15px;
+  text-align: left;
+}
+.swal-form-container .swal2-input,
+.swal-form-container .swal2-select {
+  width: 100%;
+  padding: 12px 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1em;
+  box-sizing: border-box;
+  margin: 0 !important;
+}
+.swal2-select { height: auto; }

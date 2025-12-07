@@ -1,0 +1,24 @@
+.back-button-fixed {
+    position: absolute;
+    top: -18px;
+    left: -18px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: none;
+    background-color: #343a40;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: all 0.2s ease;
+    z-index: 1000;
+}
+
+.back-button-fixed:hover {
+    transform: translateY(-2px);
+    background-color: #495057;
+}

@@ -1,0 +1,211 @@
+/* Container Principal */
+.cardapio-container {
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    height: calc(100vh - 80px); 
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Layout Principal */
+.cardapio-layout {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    border: 1px solid #e9ecef;
+    overflow: hidden;
+    flex-grow: 1;
+    min-height: 0;
+}
+
+/* Header */
+.cardapio-header {
+    background: #fff;
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.cardapio-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+/* Área de Lista com Scroll (MODIFICADO) */
+.cardapio-list-scroll {
+    flex-grow: 1;
+    overflow-y: auto;
+    /* Aumentei o padding superior para 3rem para garantir o espaço que você quer */
+    padding: 3rem 2rem 2rem 2rem; 
+    background-color: #f8f9fa;
+    /* Removido o display: flex que forçava o comportamento de centralização estranho */
+    display: block; 
+}
+
+/* --- GRID DE ARQUIVOS (MODIFICADO) --- */
+.files-grid {
+    display: grid;
+    /* Mantém 3 ou 4 itens por linha dependendo da tela */
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.5rem; /* Espaço entre os cards */
+    width: 100%;
+    /* Removido margin: auto 0. Agora ele respeita o padding do pai e flui normalmente */
+}
+
+/* Card Individual */
+.file-card {
+    background: #fff;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.2s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between; /* Distribui conteúdo verticalmente */
+    height: 100%; /* Garante altura uniforme */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.file-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+    border-color: #b0c4de;
+}
+
+.file-icon {
+    font-size: 3.5rem;
+    color: #e74c3c;
+    margin-bottom: 1rem;
+}
+
+.file-name {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    line-height: 1.3;
+}
+
+.file-date {
+    color: #7f8c8d;
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Ações do Card */
+.file-actions {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    margin-top: auto; /* Empurra botões para o final */
+}
+
+.btn-file-action {
+    padding: 0.6rem;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background 0.2s;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.btn-view {
+    background-color: #e3f2fd;
+    color: #0d6efd;
+}
+.btn-view:hover { background-color: #bbdefb; }
+
+.btn-delete-file {
+    background-color: #fce8e6; /* Vermelho bem claro */
+    color: #dc3545;
+}
+.btn-delete-file:hover { background-color: #f8d7da; }
+
+/* Botão Upload */
+.upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.btn-upload {
+    border: 2px solid #28a745;
+    color: white;
+    background-color: #28a745;
+    padding: 0.7rem 1.5rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s;
+}
+
+.btn-upload:hover {
+    background-color: #218838;
+    border-color: #218838;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.2);
+}
+
+.upload-btn-wrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    cursor: pointer;
+    height: 100%;
+    width: 100%;
+}
+
+/* Empty State */
+.empty-files {
+    /* Centraliza totalmente se estiver vazio */
+    margin: auto; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem;
+    color: #adb5bd;
+    height: 100%; /* Garante que ocupe altura para centralizar */
+}
+.empty-files i {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
