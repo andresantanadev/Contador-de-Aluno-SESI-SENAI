@@ -1,11 +1,11 @@
 // /src/components/ContagemGeral/DetailsPanel.jsx
 import React, { useState, useEffect } from 'react';
-import './DetailsPanel.css'; // Mova os estilos relevantes do DetailsPanel para cá
+import './DetailsPanel.css';
 
-// Componente do Painel de Detalhes
 export const DetailsPanel = ({ details, loading }) => {
     const [activeTab, setActiveTab] = useState('contagens');
 
+    // Volta para contagens sempre que a data muda
     useEffect(() => {
         setActiveTab('contagens');
     }, [details]);
@@ -14,7 +14,7 @@ export const DetailsPanel = ({ details, loading }) => {
         return (
             <div className="details-panel-loading">
                 <div className="spinner"></div>
-                <span>Carregando detalhes...</span>
+                <span>Processando dados do dia...</span>
             </div>
         );
     }
@@ -22,85 +22,82 @@ export const DetailsPanel = ({ details, loading }) => {
     if (!details) {
         return (
             <div className="details-panel-empty">
-                <h3>Selecione um Dia</h3>
-                <p>Clique em um dia com contagens para ver os detalhes.</p>
+                <i className="bi bi-calendar-check" style={{ fontSize: '2.5rem', opacity: 0.3 }}></i>
+                <h3>Escolha uma data</h3>
+                <p>Selecione um dia com contagem no calendário ao lado.</p>
             </div>
         );
     }
 
     const { date, totalGeralContagens, contagens, necessidades } = details;
+    const hasNec = [...necessidades.keys()].length > 0;
 
     return (
         <div className="details-panel-content">
-            <h3 className="details-date">{date.toLocaleDateString('pt-BR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</h3>
+            <h3 className="details-date">
+                {date.toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
+            </h3>
             
             <div className="details-toggle">
-                <button
-                    className={`toggle-btn ${activeTab === 'contagens' ? 'active' : ''}`}
-                    onClick={() => setActiveTab('contagens')}
-                >
+                <button className={`toggle-btn ${activeTab === 'contagens' ? 'active' : ''}`} onClick={() => setActiveTab('contagens')}>
                     Contagens
                 </button>
-                <button
-                    className={`toggle-btn ${activeTab === 'necessidades' ? 'active' : ''}`}
-                    onClick={() => setActiveTab('necessidades')}
-                >
+                <button className={`toggle-btn ${activeTab === 'necessidades' ? 'active' : ''}`} onClick={() => setActiveTab('necessidades')}>
                     Necessidades
                 </button>
             </div>
 
-            {/* Aba de Contagens */}
+            {/* ABA: CONTAGENS */}
             <div className={`details-tab-content ${activeTab === 'contagens' ? 'active' : ''}`}>
                 <div className="modal-total-card">
-                    <span>Total Geral</span>
+                    <span>Total de Alunos</span>
                     <strong>{totalGeralContagens}</strong>
                 </div>
-                <h4 className="modal-section-header">Detalhado por Categoria</h4>
+                
                 <div className="modal-list scrollable">
                     {contagens.length > 0 ? (
-                        contagens.map((cat, indexCat) => (
-                            <React.Fragment key={indexCat}>
+                        contagens.map((cat, idx) => (
+                            <div key={idx} className="categoria-section" style={{ marginBottom: '1.5rem' }}>
                                 <h5 className="modal-categoria-header">{cat.nome_categoria}</h5>
-                                {cat.turmas && cat.turmas.length > 0 ? (
-                                    cat.turmas.map((turma, indexTurma) => (
-                                        <div className="modal-list-item" key={indexTurma}>
-                                            <span>{turma.nome_turma}</span>
-                                            <strong>{turma.qtd_contagem}</strong>
-                                        </div>
-                                    ))
-                                ) : (
-                                    <p className="modal-no-data">Nenhuma turma nesta categoria.</p>
-                                )}
-                            </React.Fragment>
+                                {cat.turmas.map((t, tidx) => (
+                                    <div className="modal-list-item" key={tidx}>
+                                        <span>{t.nome_turma}</span>
+                                        <strong>{t.qtd_contagem}</strong>
+                                    </div>
+                                ))}
+                            </div>
                         ))
                     ) : (
-                        <p className="modal-no-data">Nenhuma contagem detalhada para este dia.</p>
+                        <p className="no-data-msg">Nenhum registro nesta data.</p>
                     )}
                 </div>
             </div>
 
-            {/* Aba de Necessidades */}
+            {/* ABA: NECESSIDADES */}
             <div className={`details-tab-content ${activeTab === 'necessidades' ? 'active' : ''}`}>
                 <div className="modal-list scrollable">
-                    {[...necessidades.keys()].length > 0 ? (
-                        [...necessidades.keys()].map((necNome, indexNec) => (
-                            <React.Fragment key={indexNec}>
+                    {hasNec ? (
+                        [...necessidades.keys()].map((necNome, idx) => (
+                            <div key={idx} className="necessidade-section">
                                 <h4 className="modal-turma-header">{necNome}</h4>
-                                {necessidades.get(necNome).map((aluno, indexAluno) => (
-                                    <details className="modal-accordion" key={indexAluno}>
+                                {necessidades.get(necNome).map((aluno, aidx) => (
+                                    <details className="modal-accordion" key={aidx}>
                                         <summary>
-                                            {aluno.nome}
+                                            <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                                <strong>{aluno.nome}</strong>
+                                                <small style={{ opacity: 0.7 }}>RM: {aluno.rm || 'N/A'}</small>
+                                            </div>
                                             <i className="bi bi-chevron-down"></i>
                                         </summary>
                                         <div className="modal-accordion-content">
-                                            <span dangerouslySetInnerHTML={{ __html: aluno.descricao }} />
+                                            <div dangerouslySetInnerHTML={{ __html: aluno.descricao }} />
                                         </div>
                                     </details>
                                 ))}
-                            </React.Fragment>
+                            </div>
                         ))
                     ) : (
-                        <p className="modal-no-data">Nenhum aluno com necessidade contadado neste dia.</p>
+                        <p className="no-data-msg">Nenhuma necessidade especial registrada para hoje.</p>
                     )}
                 </div>
             </div>

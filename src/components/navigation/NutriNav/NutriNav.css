@@ -7,7 +7,7 @@
     background-color: #222;
     color: white;
     transition: right 0.3s ease;
-    padding-top: 80px;
+    padding-top: 11vh;
     box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.5);
 }
 
@@ -32,6 +32,7 @@
 
 .nome-usuario-container span {
     margin-bottom: 8px;
+
 }
 
 .nome-usuario-container hr {

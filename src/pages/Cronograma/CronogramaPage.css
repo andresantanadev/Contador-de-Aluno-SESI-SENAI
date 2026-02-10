@@ -1,0 +1,285 @@
+/* --- Container Principal --- */
+.cronograma-container {
+    width: 100%;
+    height: calc(90vh - 10vh); /* Ajuste conforme seu header */
+    margin-top: 80px;
+    background-color: #f4f6f8; /* Fundo suave */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative; /* Necessário para o posicionamento absoluto da sidebar */
+    font-family: 'Segoe UI', sans-serif;
+    border-radius: 10px;
+}
+
+/* --- Header --- */
+.cronograma-header {
+    background-color: #fff;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    z-index: 10;
+}
+
+.cronograma-header h1 {
+    font-size: 1.5rem;
+    color: #222;
+    margin: 0;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* --- Área do Board (Onde tudo acontece) --- */
+.cronograma-board-wrapper {
+    display: flex;
+    flex-grow: 1;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+/* --- SIDEBAR RETRÁTIL (Source Panel) --- */
+.sidebar-drawer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 60px; /* Largura fechada */
+    background-color: #222; /* Cor escura profissional */
+    z-index: 100;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 4px 0 15px rgba(0,0,0,0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Efeito de Hover para abrir */
+.sidebar-drawer:hover,
+.sidebar-drawer.is-dragging { /* Mantém aberto se estiver arrastando */
+    width: 320px; /* Largura aberta */
+}
+
+/* Conteúdo da Sidebar (Visível apenas quando aberto) */
+.drawer-content {
+    width: 320px; /* Garante que o conteúdo tenha largura fixa */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none; /* Evita cliques quando fechado */
+    padding: 1rem;
+    background-color: #fff; /* Fundo branco interno */
+}
+
+.sidebar-drawer:hover .drawer-content,
+.sidebar-drawer.is-dragging .drawer-content {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Aba Lateral (Ícone visível quando fechado) */
+.drawer-tab {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 2rem;
+    color: rgba(255,255,255,0.7);
+    background-color: #222;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.sidebar-drawer:hover .drawer-tab {
+    opacity: 0; /* Some quando abre */
+    pointer-events: none;
+}
+
+.drawer-tab i {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.vertical-text {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+/* Estilização interna da Sidebar */
+.source-header h3 {
+    margin: 0 0 1rem 0;
+    color: #333;
+    font-size: 1.1rem;
+    border-bottom: 2px solid #8B0000;
+    padding-bottom: 0.5rem;
+}
+
+.filter-select {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    outline: none;
+}
+
+.source-list {
+    flex-grow: 1;
+    overflow-y: auto;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #eee;
+    padding: 0.5rem;
+}
+
+.source-item {
+    background-color: #fff;
+    padding: 0.8rem;
+    margin-bottom: 0.5rem;
+    border-radius: 6px;
+    border-left: 4px solid #8B0000; /* Detalhe vermelho */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    cursor: grab;
+    font-size: 0.9rem;
+    color: #444;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.source-item:hover {
+    transform: translateX(2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* --- Painel do Cronograma (Direita) --- */
+.schedule-panel {
+    flex-grow: 1;
+    margin-left: 60px; /* Espaço reservado para a sidebar fechada */
+    padding: 1.5rem;
+    overflow-x: auto;
+    height: 100%;
+}
+
+.schedule-board {
+    display: flex;
+    gap: 1.5rem;
+    height: 100%;
+    min-width: min-content; /* Garante que as colunas não encolham demais */
+}
+
+/* Colunas dos Dias */
+.day-column {
+    width: 280px;
+    min-width: 280px;
+    background-color: #ebecf0; /* Estilo Trello/Jira */
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+    border: 1px solid #dfe1e6;
+}
+
+.day-title {
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #4d1717;
+    background-color: #ebecf0;
+    border-radius: 8px 8px 0 0;
+    margin: 0;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.cards-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 0.5rem;
+}
+
+.cards-container.dragging-over {
+    background-color: #dfe1e6;
+}
+
+/* Card do Aluno no Cronograma */
+.student-card {
+    background-color: #fff;
+    padding: 0.8rem;
+    margin-bottom: 0.5rem;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    font-size: 0.9rem;
+    color: #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.2s;
+    position: relative;
+    border-left: 3px solid transparent;
+}
+
+.student-card:hover {
+    background-color: #f4f5f7;
+    border-left-color: #28a745; /* Verde no hover */
+}
+
+.student-name {
+    margin: 0;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+}
+
+.delete-schedule-button {
+    background: none;
+    border: none;
+    color: #999;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0; /* Escondido por padrão */
+    transition: all 0.2s;
+}
+
+.student-card:hover .delete-schedule-button {
+    opacity: 1; /* Aparece no hover do card */
+}
+
+.delete-schedule-button:hover {
+    color: #dc3545;
+    background-color: #ffeaea;
+}
+
+/* Scrollbar Bonita */
+.source-list::-webkit-scrollbar,
+.cards-container::-webkit-scrollbar,
+.schedule-panel::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+.source-list::-webkit-scrollbar-thumb,
+.cards-container::-webkit-scrollbar-thumb,
+.schedule-panel::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 3px;
+}

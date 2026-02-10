@@ -75,7 +75,7 @@ const Footer = () => {
             <a href="mailto:codesolutionsteam@gmail.com"><i className="bi bi-envelope-fill"></i> codesolutionsteam@gmail.com</a>
             <a href="mailto:biancaflpicolli@gmail.com"><i className="bi bi-envelope-fill"></i> biancaflpicolli@gmail.com</a>
             <a href="https://wa.me/5518997828617" target="_blank" rel="noopener noreferrer"><i className="bi bi-whatsapp"></i> WhatsApp</a>
-            <a href="https://andresantanas.github.io/" target="_blank" rel="noopener noreferrer"><i className="bi bi-globe"></i> Code Solutions</a>
+            <a href="https://andresantanadev.github.io/Portif-lio-Code-Solutions" target="_blank" rel="noopener noreferrer"><i className="bi bi-globe"></i> Code Solutions</a>
           </div>
         </div>
 

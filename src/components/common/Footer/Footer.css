@@ -6,7 +6,7 @@ footer {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 13px;
   text-align: center;
-  min-height: 132vh;
+  min-height: 90vh;
 }
 
 .footer-container {
@@ -160,13 +160,13 @@ footer {
 /* --- ESTILOS DE CONTATO --- */
 .contact-info {
   justify-content: center;
-  padding: 25px 0;
+  padding: 25px 0vw;
 }
 
 .contact-links {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px 25px; /* Espaçamento vertical e horizontal */
+  gap: 20px 5vw; /* Espaçamento vertical e horizontal */
   justify-content: center;
   align-items: center;
 }
@@ -180,6 +180,7 @@ footer {
   gap: 8px;
   transition: color 0.3s ease;
   white-space: nowrap; /* Impede que o texto de um link quebre no meio */
+  
 }
 
 .contact-links a:hover {

@@ -194,3 +194,8 @@ export const getChatMessages = () => apiFetch(`/chats`);
 export const sendMessage = (data) => apiFetch('/chats', { method: 'POST', body: data });
 // Lista usuários (para a sidebar de participantes)
 export const getChatContacts = () => apiFetch('/users?limit=100');
+
+
+// NOVA ROTA: Para Nutri/Inspetora (Edita apenas informações, sem mudar status)
+export const updateConteudoAutorizado = (id, data) => 
+    apiFetch(`/autorizados/update/${id}`, { method: 'PUT', body: data });
