@@ -15,7 +15,6 @@ const UsuariosPage = () => {
         try {
             setLoading(true);
             const response = await getUsers(page);
-            // Ajuste para lidar com diferentes formatos de retorno do Laravel/API
             const lista = response.data?.data || response.data || [];
             const meta = response.data?.meta || (response.data?.last_page ? response.data : null);
             
@@ -53,9 +52,6 @@ const UsuariosPage = () => {
                     <label style="display:block; margin-bottom:5px; font-weight:600">Nome Completo</label>
                     <input id="swal-name" class="swal2-input" placeholder="Ex: Maria Silva" value="${user ? user.name : ''}" style="margin: 0 0 15px 0; width: 100%">
                     
-                    <label style="display:block; margin-bottom:5px; font-weight:600">E-mail</label>
-                    <input id="swal-email" type="email" class="swal2-input" placeholder="Ex: maria@escola.com" value="${user ? user.email || '' : ''}" style="margin: 0 0 15px 0; width: 100%">
-
                     <label style="display:block; margin-bottom:5px; font-weight:600">NIF (Login)</label>
                     <input id="swal-nif" class="swal2-input" placeholder="Ex: 123456" value="${user ? user.nif : ''}" style="margin: 0 0 15px 0; width: 100%">
                     
@@ -82,13 +78,13 @@ const UsuariosPage = () => {
             focusConfirm: false,
             preConfirm: () => {
                 const name = document.getElementById('swal-name').value;
-                const email = document.getElementById('swal-email').value;
                 const nif = document.getElementById('swal-nif').value;
                 const nivel_user = document.getElementById('swal-level').value;
                 const password = document.getElementById('swal-password').value;
 
-                if (!name || !nif || !email) {
-                    Swal.showValidationMessage('Nome, E-mail e NIF são obrigatórios');
+                // Validação de campos visíveis
+                if (!name || !nif) {
+                    Swal.showValidationMessage('Nome e NIF são obrigatórios');
                     return false;
                 }
                 
@@ -97,7 +93,14 @@ const UsuariosPage = () => {
                     return false;
                 }
 
-                const data = { name, email, nif, nivel_user };
+                // Montagem dos dados: E-mail fixo conforme solicitado
+                const data = { 
+                    name, 
+                    nif, 
+                    nivel_user,
+                    email: 'example@gmail.com' // E-mail automático invisível
+                };
+
                 if (password) {
                     data.password = password;
                     data.password_confirmation = password; 
@@ -116,7 +119,7 @@ const UsuariosPage = () => {
                     }
                     fetchUsers();
                 } catch (error) {
-                    Swal.fire('Erro', 'Verifique se o NIF ou E-mail já existem no sistema.', 'error');
+                    Swal.fire('Erro', 'Verifique se o NIF já existe no sistema.', 'error');
                 }
             }
         });
@@ -142,7 +145,8 @@ const UsuariosPage = () => {
                 try {
                     await updateUser(user.id, { 
                         password: result.value,
-                        password_confirmation: result.value 
+                        password_confirmation: result.value,
+                        email: user.email || 'example@gmail.com' // Mantém o padrão no reset
                     });
                     Swal.fire({ icon: 'success', title: 'Senha alterada!', timer: 1500, showConfirmButton: false });
                 } catch (error) {
@@ -251,18 +255,7 @@ const UsuariosPage = () => {
                             }}
                             dangerouslySetInnerHTML={{ __html: link.label }}
                         />
-                    )) || (
-                        // Fallback caso a estrutura de links seja simples
-                        Array.from({ length: pagination.last_page }, (_, i) => (
-                            <button 
-                                key={i} 
-                                className={`page-btn ${pagination.current_page === i + 1 ? 'active' : ''}`}
-                                onClick={() => fetchUsers(i + 1)}
-                            >
-                                {i + 1}
-                            </button>
-                        ))
-                    )}
+                    ))}
                 </div>
             )}
         </div>

@@ -31,7 +31,7 @@ const InicioPage = ({ userRole }) => {
       { texto: 'Gerenciar Usuários', icone: 'bi bi-person-video2', rota: '/nutri/gerenciar/usuarios' },
       { texto: 'Cronograma', icone: 'bi bi-calendar-week-fill', rota: '/nutri/cronograma' },
       { texto: 'Autorizados Direção', icone: 'bi bi-file-earmark-check-fill', rota: '/nutri/autorizados' },
-      { texto: 'Necessidades', icone: 'bi bi-card-checklist', rota: '/nutri/planejamento' },
+      { texto: 'Categorias', icone: 'bi bi-card-checklist', rota: '/nutri/planejamento' },
       { texto: 'Meu Perfil', icone: 'bi bi-person-circle', rota: '/nutri/perfil', color: '#343a40' },
     ],
 
@@ -44,7 +44,7 @@ const InicioPage = ({ userRole }) => {
       { texto: 'Gerenciar Usuários', icone: 'bi bi-person-video2', rota: '/diretora/gerenciar/usuarios' },
       { texto: 'Cronograma', icone: 'bi bi-calendar-week-fill', rota: '/diretora/cronograma' },
       { texto: 'Autorizados Direção', icone: 'bi bi-file-earmark-check-fill', rota: '/diretora/autorizados' },
-      { texto: 'Necessidades', icone: 'bi bi-card-checklist', rota: '/diretora/planejamento' },
+      { texto: 'Categorias', icone: 'bi bi-card-checklist', rota: '/diretora/planejamento' },
       { texto: 'Meu Perfil', icone: 'bi bi-person-circle', rota: '/diretora/perfil', color: '#343a40' },
     ],
   };

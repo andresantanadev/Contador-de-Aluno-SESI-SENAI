@@ -220,3 +220,82 @@
     padding: 4rem;
 }
 .empty-state i { font-size: 3rem; margin-bottom: 1rem; }
+
+
+
+/* --- Responsividade para Tablets e Celulares --- */
+
+@media (max-width: 768px) {
+    /* Ajustes no Container Principal */
+    .autorizados-container {
+        padding: 1rem;
+        height: auto; /* Permite que o conteúdo flua naturalmente no mobile */
+        margin-top: 60px; /* Reduz margem superior se necessário */
+    }
+
+    /* Ajuste do Header: Título em cima, ferramentas embaixo */
+    .autorizados-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.2rem;
+        padding: 1.2rem;
+    }
+
+    .header-tools {
+        width: 100%;
+        flex-direction: column; /* Ferramentas empilhadas no mobile */
+        gap: 0.8rem;
+    }
+
+    .search-container {
+        width: 100%; /* Busca ocupa largura total */
+    }
+
+    .btn-create {
+        width: 100%; /* Botão "Criar" ocupa largura total */
+        justify-content: center;
+    }
+
+    /* Ajuste do Grid de Cards */
+    .autorizados-grid-scroll {
+        padding: 1rem;
+        grid-template-columns: 1fr; /* Força uma única coluna */
+        gap: 1rem;
+    }
+
+    /* Ajustes internos do Card */
+    .auth-title {
+        font-size: 1rem;
+    }
+
+    .auth-card-footer {
+        flex-direction: column; /* Status em cima, botões embaixo */
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .auth-actions {
+        width: 100%;
+        justify-content: flex-end; /* Alinha botões à direita */
+    }
+    
+    .btn-icon-auth {
+        flex-grow: 1; /* Botões ficam maiores e mais fáceis de clicar no touch */
+        height: 40px;
+    }
+}
+
+/* Ajustes finos para telas muito pequenas (iPhone SE, etc) */
+@media (max-width: 480px) {
+    .autorizados-container {
+        padding: 0.5rem;
+    }
+    
+    .autorizados-content {
+        border-radius: 8px; /* Bordas mais sutis */
+    }
+
+    .auth-card-body {
+        padding: 1rem;
+    }
+}

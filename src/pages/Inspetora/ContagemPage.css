@@ -432,3 +432,81 @@ input:checked + .slider:before {
     max-width: 10vh;
 }
 
+/* ------------------------------
+   AJUSTES SWEETALERT (MOBILE)
+   ------------------------------ */
+
+/* Garante que o container do contador não quebre o layout */
+.contador {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px auto !important; /* Remove as margens negativas de -15vw */
+}
+
+/* Ajustes específicos para telas de celular */
+@media (max-width: 480px) {
+    /* Ajuste da largura do modal para não colar nas bordas do celular */
+    .swal2-popup {
+        width: 90% !important;
+        padding: 15px !important;
+        margin: 0 auto !important;
+    }
+
+    /* Título do modal menor */
+    .swal2-title {
+        font-size: 1.2rem !important;
+    }
+
+    /* Container do contador sem margens negativas que causam scroll horizontal */
+    .contador {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        width: 100%;
+        gap: 5px;
+    }
+
+    /* Botões um pouco menores para caber lado a lado com folga */
+    .btn-contador {
+        width: 42px;
+        height: 42px;
+        font-size: 1.2rem;
+        border-radius: 10px;
+    }
+
+    /* Input centralizado e com tamanho fixo seguro */
+    .contador-input {
+        width: 70px !important; /* Tamanho fixo em px é mais seguro que vh no mobile */
+        max-width: 80px;
+        font-size: 1.8rem;
+        margin: 0 10px;
+    }
+
+    /* Ajuste dos botões de confirmação do SweetAlert */
+    .swal2-actions {
+        width: 100%;
+        flex-direction: column-reverse; /* Empilha botões no mobile: cancelar embaixo */
+        gap: 10px;
+    }
+
+    .swal2-actions button {
+        width: 100% !important; /* Botões de Confirmar/Cancelar ocupam largura total */
+        margin: 0 !important;
+    }
+
+    /* Ajuste da lista de NES dentro do modal se houver */
+    .lista-nes {
+        max-height: 250px; /* Reduz altura para não sumir o botão de salvar */
+    }
+    
+    .nes-item {
+        padding: 6px 10px;
+        font-size: 0.9rem;
+    }
+
+    .nes-item img {
+        width: 32px;
+        height: 32px;
+    }
+}

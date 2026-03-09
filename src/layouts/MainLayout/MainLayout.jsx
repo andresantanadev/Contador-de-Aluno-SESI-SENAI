@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import Swal from 'sweetalert2/dist/sweetalert2.all.min.js';
+import Swal from '../../utils/sweetAlert';
 import { logoutUser, getUserData } from '../../services/api';
 
 import Header from '../../components/common/Header/Header';

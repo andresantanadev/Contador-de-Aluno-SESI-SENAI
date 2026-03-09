@@ -187,15 +187,22 @@ export const getAlunosNesPorData = (data) => {
     return apiFetch(`/contagem-nes?data=${data}`); 
 };
 
-// --- CHAT (Modo Grupo Geral) ---
-// Busca todas as mensagens do sistema (sem filtro de contato)
-export const getChatMessages = () => apiFetch(`/chats`); 
-// Envia mensagem
-export const sendMessage = (data) => apiFetch('/chats', { method: 'POST', body: data });
-// Lista usuários (para a sidebar de participantes)
-export const getChatContacts = () => apiFetch('/users?limit=100');
 
 
 // NOVA ROTA: Para Nutri/Inspetora (Edita apenas informações, sem mudar status)
 export const updateConteudoAutorizado = (id, data) => 
     apiFetch(`/autorizados/update/${id}`, { method: 'PUT', body: data });
+
+
+// ... (outros códigos acima)
+
+// --- CHAT (Modo Grupo Geral) ---
+export const getChatMessages = () => apiFetch(`/chats`); 
+export const sendMessage = (data) => apiFetch('/chats', { method: 'POST', body: data });
+
+// NOVA FUNÇÃO: Busca membros especificamente para o chat
+export const getChatMembers = () => apiFetch('/getMembers');
+
+// Pode manter esta se outros componentes usarem, 
+// mas o ChatPage usará a getChatMembers agora.
+export const getChatContacts = () => apiFetch('/users?limit=100');

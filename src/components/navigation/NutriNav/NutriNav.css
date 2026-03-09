@@ -127,4 +127,15 @@
     width: 200px;
     right: -200px;
   }
+    .menu-lateral .sair {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    background-color: #c00;
+    color: white;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
 }

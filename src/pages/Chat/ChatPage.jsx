@@ -1,7 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { getUserData, getChatContacts, getChatMessages, sendMessage } from '../../services/api';
+import { 
+    getUserData, 
+    getChatMembers, // Nova função da API
+    getChatMessages, 
+    sendMessage 
+} from '../../services/api';
 import placeholderAvatar from '../../assets/img/avatar.png';
-import { PUBLIC_STORAGE_URL } from '../../config/apiConfig';
+import { PUBLIC_STORAGE_URL2 } from '../../config/apiConfig';
 import './ChatPage.css';
 
 const ChatPage = () => {
@@ -15,20 +20,22 @@ const ChatPage = () => {
     const messagesContainerRef = useRef(null);
     const pollingInterval = useRef(null);
 
-    // 1. Inicialização: Carrega Usuário e Lista de Participantes
+    // 1. Inicialização: Carrega Usuário e Lista de Membros (Rota /getMembers)
     useEffect(() => {
         const initChat = async () => {
             try {
+                // Busca dados do usuário logado
                 const userRes = await getUserData();
                 const user = userRes.data || userRes;
                 setCurrentUser(user);
 
-                const contactsRes = await getChatContacts();
-                const contactsData = contactsRes.data?.data || contactsRes.data || [];
-                setParticipants(contactsData);
+                // Busca membros da equipe usando a nova rota especificada
+                const membersRes = await getChatMembers();
+                const membersData = membersRes.data || membersRes || [];
+                setParticipants(membersData);
 
-                // Carrega mensagens imediatamente
-                fetchMessages(true);
+                // Carrega mensagens iniciais
+                await fetchMessages(true);
 
             } catch (error) {
                 console.error("Erro ao iniciar chat:", error);
@@ -37,108 +44,93 @@ const ChatPage = () => {
 
         initChat();
 
-        // Polling: Atualiza mensagens a cada 3s sem mostrar loading visual
+        // Polling: Atualiza mensagens a cada 3 segundos
         pollingInterval.current = setInterval(() => {
             fetchMessages(false);
         }, 3000);
 
-        return () => clearInterval(pollingInterval.current);
+        return () => {
+            if (pollingInterval.current) clearInterval(pollingInterval.current);
+        };
     }, []);
 
-    // 2. Função para buscar mensagens do servidor
+    // 2. Busca de mensagens
     const fetchMessages = async (showLoading = false) => {
         if (showLoading) setLoadingMessages(true);
         try {
             const res = await getChatMessages();
             const msgs = res.data?.data || res.data || [];
             
-            // Ordena por data (mais antigas no topo, novas embaixo)
-            // Tenta usar 'data' (do seu payload) ou 'created_at' (padrão Laravel)
+            // Ordenação Cronológica
             const sortedMsgs = msgs.sort((a, b) => {
                 const dateA = new Date(a.data || a.created_at);
                 const dateB = new Date(b.data || b.created_at);
                 return dateA - dateB;
             });
             
-            // Atualiza o estado apenas se houver mudança na quantidade para evitar re-renders
+            // Atualiza apenas se houver novas mensagens
             setMessages(prev => {
                 if (prev.length !== sortedMsgs.length) return sortedMsgs;
                 return prev; 
-                // Nota: Para ser perfeito, deveria comparar o ID da última mensagem, 
-                // mas length funciona bem para chats simples.
             });
 
         } catch (error) {
-            console.error("Erro no polling:", error);
+            console.error("Erro ao buscar mensagens:", error);
         } finally {
             if (showLoading) setLoadingMessages(false);
         }
     };
 
-    // 3. Scroll Inteligente
-    // Só rola para baixo automaticamente se o usuário JÁ estiver perto do fim
+    // 3. Controle de Scroll
     useEffect(() => {
         const container = messagesContainerRef.current;
         if (!container) return;
 
-        // Se a distância do scroll até o fim for pequena (< 150px) OU for a primeira carga
         const isNearBottom = container.scrollHeight - container.scrollTop - container.clientHeight < 200;
 
         if (isNearBottom || loadingMessages) {
-            // Usa setTimeout para garantir que o DOM atualizou
             setTimeout(() => {
                 messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
             }, 100);
         }
     }, [messages, loadingMessages]);
 
-    // 4. Enviar Mensagem
+    // 4. Envio de Mensagem
     const handleSendMessage = async (e) => {
         e.preventDefault();
         if (!newMessage.trim() || !currentUser) return;
 
-        // Formata Data para MySQL (YYYY-MM-DD HH:mm:ss)
         const now = new Date();
-        const formattedDate = now.getFullYear() + '-' +
-            String(now.getMonth() + 1).padStart(2, '0') + '-' +
-            String(now.getDate()).padStart(2, '0') + ' ' +
-            String(now.getHours()).padStart(2, '0') + ':' +
-            String(now.getMinutes()).padStart(2, '0') + ':' +
-            String(now.getSeconds()).padStart(2, '0');
+        const formattedDate = now.toISOString().slice(0, 19).replace('T', ' ');
 
         const payload = {
             mensagem_chat: newMessage,
-            visto: 'n', // CORREÇÃO: Backend espera 's' ou 'n' (string), não 0
+            visto: 'n',
             data: formattedDate,
             users_id: currentUser.id
         };
 
-        // Limpa input imediatamente para UX rápida
         const msgText = newMessage;
         setNewMessage('');
 
         try {
             await sendMessage(payload);
-            fetchMessages(false); // Atualiza lista oficial
+            fetchMessages(false);
             
-            // Força scroll para baixo após envio
             setTimeout(() => {
                 messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
             }, 100);
         } catch (error) {
             console.error("Erro ao enviar:", error);
-            // Devolve o texto para o input em caso de erro
-            setNewMessage(msgText);
-            alert("Não foi possível enviar a mensagem. Tente novamente.");
+            setNewMessage(msgText); // Retorna o texto se falhar
         }
     };
 
-    // Helpers de Renderização
+    // Helpers de Formatação
     const formatTime = (dateString) => {
         if (!dateString) return '';
         const date = new Date(dateString);
-        if (isNaN(date.getTime())) return ''; // Data inválida
-        return date.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+        return isNaN(date.getTime()) ? '' : date.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
     };
 
     const renderMessages = () => {
@@ -151,12 +143,13 @@ const ChatPage = () => {
             const showDateDivider = msgDate !== lastDate;
             lastDate = msgDate;
 
-            // Identifica se a mensagem é do usuário atual
             const isMe = String(msg.users_id) === String(currentUser?.id);
             
-            // Identifica o nome do remetente
-            let senderName = msg.user_name || "Usuário";
-            if (!isMe && participants.length > 0) {
+            // Lógica para encontrar o nome do remetente na lista de participantes
+            let senderName = "Usuário";
+            if (isMe) {
+                senderName = currentUser.name;
+            } else {
                 const sender = participants.find(p => String(p.id) === String(msg.users_id));
                 if (sender) senderName = sender.name;
             }
@@ -169,13 +162,12 @@ const ChatPage = () => {
                     <div className={`message-bubble ${isMe ? 'sent' : 'received'}`}>
                         {!isMe && <div className="message-author">{senderName}</div>}
                         <div className="message-text">{msg.mensagem_chat}</div>
-                        <span className="message-time">
-                            {formatTime(rawDate)}
-                            {/* Ícone de visto apenas se necessário/suportado */}
-                            {isMe && msg.visto === 's' && (
-                                <i className="bi bi-check2-all" style={{marginLeft: 5, color: '#3498db'}}></i>
+                        <div className="message-footer">
+                            <span className="message-time">{formatTime(rawDate)}</span>
+                            {isMe && (
+                                <i className={`bi ${msg.visto === 's' ? 'bi-check2-all text-primary' : 'bi-check2'}`}></i>
                             )}
-                        </span>
+                        </div>
                     </div>
                 </React.Fragment>
             );
@@ -184,18 +176,19 @@ const ChatPage = () => {
 
     return (
         <div className="chat-container">
-            
-            {/* --- SIDEBAR (Visualização dos Membros) --- */}
+            {/* SIDEBAR: Membros da Equipe */}
             <aside className="chat-sidebar">
                 <div className="sidebar-header">
-                    <h3>Membros da Equipe</h3>
+                    <h3>Membros</h3>
                 </div>
                 <div className="contacts-list">
                     {participants.map(contact => (
                         <div key={contact.id} className="contact-item">
                             <div className="contact-avatar">
-                                <img src={contact.foto ? `${PUBLIC_STORAGE_URL}/${contact.foto}` : placeholderAvatar} alt={contact.name} />
-                                {/* Bolinha verde se for o usuário atual, cinza outros (ou lógica de online se tiver) */}
+                                <img 
+                                    src={contact.foto ? `${PUBLIC_STORAGE_URL2}/${contact.foto}` : placeholderAvatar} 
+                                    alt={contact.name} 
+                                />
                                 <span className={`status-dot ${contact.id === currentUser?.id ? 'online' : ''}`}></span>
                             </div>
                             <div className="contact-info">
@@ -203,7 +196,7 @@ const ChatPage = () => {
                                     {contact.name} {contact.id === currentUser?.id ? '(Você)' : ''}
                                 </div>
                                 <div className="contact-role">
-                                    {contact.nivel_user == 1 ? 'Inspetora' : contact.nivel_user == 2 ? 'Nutricionista' : 'Diretora'}
+                                    {contact.nivel_user === 1 ? 'Inspetora' : contact.nivel_user === 2 ? 'Nutricionista' : 'Diretora'}
                                 </div>
                             </div>
                         </div>
@@ -211,9 +204,8 @@ const ChatPage = () => {
                 </div>
             </aside>
 
-            {/* --- JANELA DE CHAT (Grupo Geral) --- */}
+            {/* JANELA PRINCIPAL */}
             <main className="chat-window">
-                {/* Header do Chat */}
                 <div className="chat-header">
                     <div className="chat-user-profile">
                         <div className="contact-avatar group-avatar">
@@ -221,41 +213,35 @@ const ChatPage = () => {
                         </div>
                         <div className="chat-user-details">
                             <h4>Chat Geral da Equipe</h4>
-                            <p className="chat-user-status">Todos os membros</p>
+                            <p className="chat-user-status">{participants.length} membros ativos</p>
                         </div>
                     </div>
                 </div>
 
-                {/* Área de Mensagens */}
                 <div className="messages-area" ref={messagesContainerRef}>
                     {loadingMessages && messages.length === 0 ? (
-                        <div style={{textAlign:'center', marginTop:'20px', color:'#999'}}>
-                            <div className="spinner-border spinner-border-sm" role="status"></div> Carregando conversa...
+                        <div className="chat-loading">
+                            <div className="spinner-border spinner-border-sm" role="status"></div>
+                            <span>Carregando...</span>
                         </div>
                     ) : messages.length > 0 ? (
                         renderMessages()
                     ) : (
-                        <div style={{textAlign:'center', marginTop:'50px', color:'#999', fontSize:'0.9rem'}}>
-                            <i className="bi bi-chat-dots" style={{fontSize:'2rem', display:'block', marginBottom:'10px'}}></i>
-                            Nenhuma mensagem ainda. Comece a conversa!
+                        <div className="chat-empty-state">
+                            <i className="bi bi-chat-dots"></i>
+                            <p>Nenhuma mensagem ainda.</p>
                         </div>
                     )}
-                    {/* Elemento invisível para rolagem */}
                     <div ref={messagesEndRef} />
                 </div>
 
-                {/* Área de Input */}
                 <form className="chat-input-area" onSubmit={handleSendMessage}>
-                    <button type="button" className="btn-attach" title="Anexar (em breve)">
-                        <i className="bi bi-paperclip"></i>
-                    </button>
                     <input 
                         type="text" 
                         className="chat-input" 
-                        placeholder="Digite sua mensagem para o grupo..." 
+                        placeholder="Escreva uma mensagem..." 
                         value={newMessage}
                         onChange={(e) => setNewMessage(e.target.value)}
-                        maxLength={100} // Limite do banco de dados
                     />
                     <button type="submit" className="btn-send" disabled={!newMessage.trim()}>
                         <i className="bi bi-send-fill"></i>

@@ -178,8 +178,8 @@
 
 /* Logos */
 .setas-flanco {
-    height: 9vh;
-    max-height: 80px;
+    max-width: 10vh;
+
     z-index: 998;
 }
 

@@ -32,3 +32,67 @@ main {
     padding: 10px;
   }
 }
+/* --- AJUSTE GLOBAL DEFINITIVO: SWEETALERT NO MOBILE --- */
+
+/* 1. Container: Força a centralização na área VISÍVEL (viewport) */
+.swal2-container {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 10px !important;
+    z-index: 100000 !important;
+    overflow: hidden !important;
+    background: rgba(0, 0, 0, 0.4); /* Overlay escuro */
+}
+
+/* 2. Popup: A caixinha branca */
+.swal2-popup {
+    width: 90% !important;
+    max-width: 420px !important;
+    margin: 0 auto !important;
+    border-radius: 15px !important;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2) !important;
+    /* Evita que o modal encoste no topo ou fundo da tela */
+    max-height: 80vh !important; 
+}
+
+/* 3. Ajuste de alinhamento para ignorar o Footer no celular */
+@media (max-width: 768px) {
+    .swal2-container {
+        /* Ajuste este valor (80px) de acordo com a altura do seu Footer */
+        padding-bottom: 80px !important; 
+        align-items: center !important;
+    }
+
+    .swal2-popup {
+        font-size: 0.9rem !important;
+        padding: 1.25rem !important;
+    }
+
+    /* Ajuste para que a lista de campos (inputs) tenha scroll se for longa */
+    .swal2-html-container {
+        max-height: 50vh !important;
+        overflow-y: auto !important;
+        margin: 10px 0 !important;
+        padding: 5px !important;
+    }
+}
+
+/* 4. Inputs: Padronização para não quebrar o layout */
+.swal2-input, .swal2-select, .swal2-textarea {
+    width: 100% !important;
+    margin: 10px 0 !important;
+    box-sizing: border-box !important;
+    font-size: 16px !important; /* Impede zoom no iPhone ao clicar */
+}
+
+/* 5. Trava o scroll do fundo (MainLayout) quando o modal abre */
+body.swal2-shown {
+    overflow: hidden !important;
+    height: 100vh !important;
+}
